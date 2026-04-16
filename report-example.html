@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Маркетинговая диагностика — Пластиковые окна и остекление, Самара и Самарская область</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+  <link rel="stylesheet" href="/static/print.css" media="print">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #f97316; --accent-light: #fff7ed; --accent-border: #fed7aa;
+      --text: #0f172a; --text2: #475569; --text3: #94a3b8; --border: #e2e8f0;
+      --bg: #f8fafc; --bg-card: #ffffff;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08); --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+      --green: #16a34a; --green-bg: #f0fdf4; --green-border: #86efac;
+      --blue: #1e40af;  --blue-bg: #eff6ff;  --blue-border: #bfdbfe;
+      --red: #b91c1c;   --red-bg: #fef2f2;   --red-border: #fca5a5;
+      --purple: #6b21a8; --purple-bg: #faf5ff; --purple-border: #d8b4fe;
+      --cyan: #0891b2;  --cyan-bg: #ecfeff;  --cyan-border: #a5f3fc;
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; color: var(--text); background: var(--bg); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .mono { font-family: 'Fira Code', monospace; }
+
+    /* ── PDF BAR ── */
+    .pdf-bar { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: .6rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .pdf-bar__text { font-size: .8rem; color: var(--text2); }
+    .pdf-btn { display: inline-flex; align-items: center; gap: .4rem; background: var(--bg); border: 1.5px solid var(--border); border-radius: 7px; padding: .4rem 1rem; font-size: .8rem; font-weight: 600; color: var(--text2); text-decoration: none; transition: all .15s; cursor: pointer; }
+    .pdf-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+    /* ── COVER ── */
+    .cover { background: var(--text); color: #fff; padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+    .cover::before { content: ''; position: absolute; top: 0; right: 0; width: 500px; height: 500px; background: radial-gradient(circle at top right, rgba(249,115,22,.18), transparent 70%); pointer-events: none; }
+    .cover-inner { max-width: 1040px; margin: 0 auto; position: relative; }
+    .cover-brand { font-size: .72rem; color: #64748b; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .4rem; }
+    .cover-title { font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; margin-bottom: .5rem; }
+    .cover-title span { color: var(--accent); }
+    .cover-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .cover-chip { display: inline-flex; align-items: center; gap: .4rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); padding: .3rem .75rem; border-radius: 16px; font-size: .75rem; color: #e2e8f0; }
+    .cover-chip strong { color: #fff; }
+
+    /* ── SCORES BAR ── */
+    .scores-bar { background: var(--text); border-top: 1px solid rgba(255,255,255,.06); }
+    .scores-bar-inner { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 600px) { .scores-bar-inner { grid-template-columns: repeat(2, 1fr); } }
+    .score-item { padding: 1rem 1.2rem; border-right: 1px solid rgba(255,255,255,.06); text-align: center; }
+    .score-item:last-child { border-right: none; }
+    .score-val { font-size: 1.5rem; font-weight: 900; color: var(--accent); font-family: 'Fira Code', monospace; line-height: 1; margin-bottom: .2rem; }
+    .score-lbl { font-size: .65rem; color: #64748b; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+
+    /* ── TABS ── */
+    .tab-nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.97); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0 1rem; overflow-x: auto; scrollbar-width: none; }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-nav-inner { max-width: 1040px; margin: 0 auto; display: flex; gap: 0; }
+    .tab-btn { display: inline-flex; align-items: center; gap: .35rem; padding: .7rem .75rem; font-size: .72rem; font-weight: 600; color: var(--text3); background: none; border: none; border-bottom: 2.5px solid transparent; white-space: nowrap; cursor: pointer; transition: color .15s, border-color .15s; font-family: inherit; }
+    .tab-btn:hover { color: var(--text2); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .tab-btn .tab-num { font-family: 'Fira Code', monospace; font-size: .65rem; }
+
+    /* ── PANELS ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .panel-body { max-width: 1040px; margin: 0 auto; padding: 1.75rem 1.5rem 3rem; }
+
+    /* ── SECTION HEADER ── */
+    .sh { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
+    .sh-num { min-width: 30px; height: 30px; background: var(--text); color: var(--accent); border-radius: 7px; font-size: .68rem; font-weight: 700; font-family: 'Fira Code', monospace; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sh-title { font-size: 1.35rem; font-weight: 800; color: var(--text); flex: 1; }
+    .sh-badge { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; padding: .2rem .5rem; border-radius: 4px; background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-border); }
+
+    /* ── SUB HEADER ── */
+    .sub-h { font-size: .82rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 .75rem; padding-left: .5rem; border-left: 3px solid var(--accent); }
+
+    /* ── CARD ── */
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow-sm); }
+    .card + .card { margin-top: .75rem; }
+
+    /* ── KV ── */
+    .kv-label { font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: .3rem; }
+    .kv-value { font-size: .88rem; color: var(--text); line-height: 1.6; }
+    .prose { white-space: pre-line; }
+
+    /* ── GRID HELPERS ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+    .grid-full { grid-column: 1 / -1; }
+    @media (max-width: 700px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+    /* ── TAG/CHIP ── */
+    .tag { display: inline-block; padding: .2rem .55rem; border-radius: 4px; font-size: .72rem; font-weight: 600; margin: .15rem .15rem 0 0; }
+    .tag-orange { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-border); }
+    .tag-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    .tag-blue { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+    .tag-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .tag-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+    .tag-cyan { background: var(--cyan-bg); color: var(--cyan); border: 1px solid var(--cyan-border); }
+    .tag-gray { background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
+
+    /* ── IMPACT DOT ── */
+    .impact { display: inline-flex; align-items: center; gap: .3rem; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+    .impact-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .impact-high .impact-dot { background: var(--red); }
+    .impact-high { color: var(--red); }
+    .impact-medium .impact-dot { background: var(--accent); }
+    .impact-medium { color: var(--accent); }
+    .impact-low .impact-dot { background: var(--green); }
+    .impact-low { color: var(--green); }
+
+    /* ── CHART CARD ── */
+    .chart-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow-sm); margin-top: .75rem; }
+    .chart-title { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: .75rem; display: flex; align-items: center; justify-content: space-between; }
+    .chart-badge { font-size: .68rem; font-weight: 600; background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-border); padding: .1rem .45rem; border-radius: 4px; font-family: 'Fira Code', monospace; text-transform: none; letter-spacing: 0; }
+    .chart-canvas-wrap { position: relative; }
+
+    /* ── EXECUTIVE SUMMARY ── */
+    .exec-summary { background: #fffbf7; border: 1px solid var(--accent-border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.25rem; font-size: 1rem; line-height: 1.7; color: var(--text); white-space: pre-line; }
+
+    /* ── CONCLUSION ITEM ── */
+    .conc-item { display: flex; align-items: flex-start; gap: .75rem; padding: .75rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: .5rem; }
+    .conc-num { min-width: 22px; height: 22px; background: var(--accent); color: #fff; border-radius: 4px; font-size: .65rem; font-weight: 700; font-family: 'Fira Code', monospace; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: .1rem; }
+    .conc-text { font-size: .85rem; color: var(--text); line-height: 1.55; }
+
+    /* ── DRIVER / BARRIER ROWS ── */
+    .driver-row { display: flex; align-items: flex-start; gap: .75rem; padding: .75rem; border-bottom: 1px solid var(--border); }
+    .driver-row:last-child { border-bottom: none; }
+
+    /* ── TREND ITEM ── */
+    .trend-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: .625rem; }
+    .trend-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+    .trend-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+    .trend-desc { font-size: .82rem; color: var(--text2); line-height: 1.55; margin-bottom: .5rem; }
+    .trend-meta { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+    /* ── SEGMENT CARD ── */
+    .seg-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
+    .seg-name { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; }
+    .seg-desc { font-size: .8rem; color: var(--text2); line-height: 1.5; margin-bottom: .5rem; }
+    .seg-stats { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .seg-stat { font-size: .68rem; font-weight: 600; padding: .15rem .4rem; border-radius: 3px; background: var(--bg); color: var(--text2); border: 1px solid var(--border); }
+
+    /* ── ICP CARD ── */
+    .icp { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-sm); margin-bottom: 1rem; }
+    .icp-head { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem; background: linear-gradient(135deg, #fefce8 0%, #fff7ed 100%); border-bottom: 1px solid var(--accent-border); }
+    .icp-initials { width: 48px; height: 48px; background: var(--accent); color: #fff; border-radius: 12px; font-size: .9rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .icp-name { font-size: 1rem; font-weight: 800; color: var(--text); }
+    .icp-role { font-size: .72rem; font-weight: 600; background: var(--bg); border: 1px solid var(--border); padding: .15rem .5rem; border-radius: 12px; color: var(--text2); display: inline-block; margin-top: .25rem; }
+    .icp-desc { font-size: .82rem; color: var(--text2); margin-top: .35rem; line-height: 1.5; }
+    .icp-body { padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 700px) { .icp-body { grid-template-columns: 1fr; } }
+    .icp-block-title { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: .4rem; }
+    .icp-list { list-style: none; padding: 0; }
+    .icp-list li { font-size: .8rem; color: var(--text2); line-height: 1.5; padding: .2rem 0 .2rem .8rem; position: relative; }
+    .icp-list li::before { content: ''; position: absolute; left: 0; top: .55rem; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+    .icp-jtbd { padding: .75rem 1.5rem; background: #fffbf5; border-top: 1px solid var(--accent-border); border-bottom: 1px solid var(--accent-border); }
+    .icp-jtbd-label { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin-bottom: .2rem; }
+    .icp-jtbd-text { font-size: .82rem; color: var(--text); font-style: italic; line-height: 1.5; }
+    .icp-full { grid-column: 1 / -1; }
+    .icp-meta-row { display: flex; gap: .75rem; flex-wrap: wrap; padding: .75rem 1.5rem; border-top: 1px solid var(--border); }
+    .icp-meta-item { flex: 1; min-width: 140px; }
+    .icp-meta-label { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: .15rem; }
+    .icp-meta-value { font-size: .78rem; color: var(--text); line-height: 1.45; }
+    .icp-potential { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; padding: .75rem 1.5rem; border-top: 1px solid var(--border); background: var(--bg); }
+    .icp-pot-item { text-align: center; }
+    .icp-pot-label { font-size: .58rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); margin-bottom: .15rem; }
+    .icp-pot-value { font-size: .85rem; font-weight: 700; color: var(--text); font-family: 'Fira Code', monospace; }
+    .icp-pot-value--accent { color: var(--accent); }
+
+    /* ── SVG FUNNEL ── */
+    .svg-funnel-wrap { padding: .5rem 1.5rem .5rem; overflow: visible; }
+    .svg-funnel-wrap svg text { dominant-baseline: middle; }
+
+    /* ── CJM ── */
+    .cjm-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .75rem; }
+    .cjm-stage { font-size: .88rem; font-weight: 800; color: var(--text); display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
+    .cjm-stage-num { font-size: .6rem; font-weight: 700; font-family: 'Fira Code', monospace; color: #fff; background: var(--accent); width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cjm-emotion { display: inline-flex; align-items: center; gap: .3rem; font-size: .68rem; font-weight: 600; padding: .15rem .5rem; border-radius: 12px; background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+    .cjm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .5rem; }
+    @media (max-width: 700px) { .cjm-grid { grid-template-columns: 1fr; } }
+    .cjm-thoughts { font-size: .82rem; color: var(--text2); font-style: italic; padding: .5rem .75rem; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--purple); margin: .5rem 0; line-height: 1.5; }
+
+    /* ── COMPETITOR CARD ── */
+    .comp-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; margin-bottom: .625rem; }
+    .comp-type { font-size: .88rem; font-weight: 700; color: var(--text); margin-bottom: .3rem; display: flex; justify-content: space-between; align-items: center; }
+    .comp-desc { font-size: .82rem; color: var(--text2); line-height: 1.55; margin-bottom: .5rem; }
+    .comp-meta { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+    /* ── ATTENTION ITEM ── */
+    .att-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .75rem; }
+    .att-head { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: .5rem; }
+    .att-num { min-width: 24px; height: 24px; background: var(--green); color: #fff; border-radius: 5px; font-size: .65rem; font-weight: 700; font-family: 'Fira Code', monospace; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .att-title { font-size: .9rem; font-weight: 700; color: var(--text); }
+    .att-desc { font-size: .82rem; color: var(--text2); line-height: 1.55; margin-bottom: .5rem; }
+    .att-steps { list-style: none; padding: 0; margin: .5rem 0; counter-reset: astep; }
+    .att-steps li { font-size: .78rem; color: var(--text); padding: .25rem 0 .25rem 1.5rem; position: relative; counter-increment: astep; }
+    .att-steps li::before { content: counter(astep); position: absolute; left: 0; top: .25rem; width: 16px; height: 16px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--border); font-size: .55rem; font-weight: 700; font-family: 'Fira Code', monospace; color: var(--text3); display: flex; align-items: center; justify-content: center; }
+
+    /* ── RISK ITEM ── */
+    .risk-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .75rem; }
+    .risk-head { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: .5rem; }
+    .risk-prob { font-size: .58rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: .2rem .45rem; border-radius: 4px; flex-shrink: 0; font-family: 'Fira Code', monospace; margin-top: .1rem; }
+    .risk-prob-high { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .risk-prob-medium { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-border); }
+    .risk-prob-low { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    .risk-title { font-size: .9rem; font-weight: 700; color: var(--text); }
+    .risk-desc { font-size: .82rem; color: var(--text2); line-height: 1.55; margin-bottom: .5rem; }
+    .risk-section { margin-top: .5rem; padding: .5rem .75rem; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--border); }
+    .risk-section-title { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); margin-bottom: .2rem; }
+    .risk-section-text { font-size: .78rem; color: var(--text); line-height: 1.5; }
+
+    /* ── RISK MATRIX ── */
+    .rm-grid { display: grid; grid-template-columns: auto 1fr 1fr; grid-template-rows: 1fr 1fr auto; gap: 2px; background: var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 1.25rem; }
+    .rm-y { grid-row: 1/3; writing-mode: vertical-lr; transform: rotate(180deg); font-size: .65rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; display: flex; align-items: center; justify-content: center; background: var(--bg-card); padding: .5rem; }
+    .rm-cell { padding: .75rem; background: var(--bg-card); min-height: 60px; }
+    .rm-cell-hdr { font-size: .58rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text3); margin-bottom: .3rem; }
+    .rm-cell--hh { background: #fef2f2; }
+    .rm-tag { display: inline-block; font-size: .68rem; padding: .15rem .4rem; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; margin: .15rem .15rem 0 0; color: var(--text2); }
+    .rm-x { grid-column: 2/4; display: flex; justify-content: space-between; background: var(--bg-card); padding: .4rem .75rem; font-size: .62rem; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; }
+
+    /* ── ACTION CARD ── */
+    .act-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .75rem; }
+    .act-head { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: .5rem; }
+    .act-pri { min-width: 26px; height: 26px; border-radius: 6px; font-size: .72rem; font-weight: 700; font-family: 'Fira Code', monospace; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+    .act-pri-1 { background: var(--accent); }
+    .act-pri-2 { background: var(--purple); }
+    .act-pri-3 { background: var(--cyan); }
+    .act-pri-n { background: var(--text2); }
+    .act-title { font-size: .9rem; font-weight: 700; color: var(--text); }
+    .act-why { font-size: .82rem; color: var(--text2); line-height: 1.55; margin-bottom: .5rem; }
+    .act-chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .5rem; }
+    .act-chip { font-size: .68rem; font-weight: 600; padding: .2rem .5rem; border-radius: 4px; display: inline-flex; align-items: center; gap: .25rem; }
+    .act-steps { list-style: none; padding: 0; margin: .5rem 0; counter-reset: step; }
+    .act-steps li { font-size: .78rem; color: var(--text); padding: .2rem 0 .2rem 1.5rem; position: relative; counter-increment: step; line-height: 1.5; }
+    .act-steps li::before { content: counter(step); position: absolute; left: 0; top: .2rem; width: 16px; height: 16px; border-radius: 50%; background: var(--accent-light); border: 1.5px solid var(--accent-border); font-size: .55rem; font-weight: 700; font-family: 'Fira Code', monospace; color: var(--accent); display: flex; align-items: center; justify-content: center; }
+
+    /* ── CLIENT SPECIFIC ── */
+    .cs-panel { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; margin-bottom: .75rem; }
+    .cs-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: .4rem; }
+    .cs-value { font-size: .85rem; color: var(--text); line-height: 1.6; }
+    .cs-danger { border-left: 3px solid var(--red); }
+    .cs-accent { border-left: 3px solid var(--accent); }
+    .cs-green { border-left: 3px solid var(--green); }
+    .cs-blue { border-left: 3px solid var(--blue); }
+
+    /* ── 90 DAY PLAN ── */
+    .plan-month { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.1rem; }
+    .plan-month-title { font-size: .75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .5rem; }
+    .plan-item { font-size: .82rem; color: var(--text); padding: .25rem 0 .25rem .75rem; position: relative; line-height: 1.5; }
+    .plan-item::before { content: ''; position: absolute; left: 0; top: .55rem; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+
+    /* ── SWOT ── */
+    .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    @media (max-width: 600px) { .swot-grid { grid-template-columns: 1fr; } }
+
+    /* ── UL styles ── */
+    .ul-clean { list-style: none; padding: 0; }
+    .ul-clean li { font-size: .82rem; color: var(--text2); line-height: 1.55; padding: .2rem 0 .2rem .75rem; position: relative; }
+    .ul-clean li::before { content: ''; position: absolute; left: 0; top: .6rem; width: 4px; height: 4px; border-radius: 50%; background: var(--text3); }
+
+    /* ── PRICE BENCH ── */
+    .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-top: .5rem; }
+    @media (max-width: 600px) { .price-grid { grid-template-columns: 1fr; } }
+    .price-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: .875rem; text-align: center; }
+    .price-tier { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--text3); margin-bottom: .3rem; }
+    .price-val { font-size: 1rem; font-weight: 800; color: var(--text); font-family: 'Fira Code', monospace; }
+
+    /* ── HERO METRICS ── */
+    .hero-metrics { background: var(--text); border-top: 1px solid rgba(255,255,255,.06); }
+    .hero-metrics-inner { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; }
+    .hm-card { padding: 1.1rem 1.2rem; text-align: center; background: rgba(255,255,255,.03); }
+    .hm-val { font-size: 1.5rem; font-weight: 800; line-height: 1.1; margin-bottom: .25rem; font-family: 'Fira Code', monospace; }
+    .hm-val--blue { color: #60a5fa; }
+    .hm-val--green { color: #4ade80; }
+    .hm-val--orange { color: var(--accent); }
+    .hm-val--red { color: #f87171; }
+    .hm-lbl { font-size: .65rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: .05em; }
+    .hm-src { font-size: .55rem; color: #475569; margin-top: .2rem; }
+
+    /* ── SOURCE REF ── */
+    .source-ref { font-size: .6rem; color: var(--text3); font-style: italic; margin-top: .25rem; }
+    .source-refs { padding: .5rem .75rem; background: var(--bg); border-radius: 8px; margin-top: .75rem; }
+    .source-refs-title { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); margin-bottom: .3rem; }
+    .source-refs li { font-size: .65rem; color: var(--text2); line-height: 1.5; }
+
+    /* ── INFO BLOCKS ── */
+    .info-positive { border-left: 3px solid var(--green); background: var(--green-bg); }
+    .info-warning { border-left: 3px solid var(--accent); background: var(--accent-light); }
+    .info-critical { border-left: 3px solid var(--red); background: var(--red-bg); }
+
+    /* ── FILTER BAR ── */
+    .filter-bar { display: flex; gap: .35rem; margin-bottom: 1rem; flex-wrap: wrap; padding: .3rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); }
+    .filter-btn { border: none; background: transparent; font-size: .72rem; font-weight: 600; padding: .35rem .7rem; border-radius: 6px; cursor: pointer; color: var(--text2); transition: all .15s; font-family: inherit; }
+    .filter-btn:hover { color: var(--text); }
+    .filter-btn.active { background: var(--bg-card); color: var(--text); box-shadow: var(--shadow-sm); font-weight: 700; }
+
+    /* ── COLLAPSIBLE ACTION DETAILS ── */
+    .act-details { display: none; margin-top: .5rem; padding-top: .5rem; border-top: 1px solid var(--border); }
+    .act-card.expanded .act-details { display: block; }
+    .act-toggle { font-size: .68rem; color: var(--accent); cursor: pointer; font-weight: 600; margin-top: .4rem; display: inline-block; }
+    .act-toggle:hover { text-decoration: underline; }
+
+    /* ── CTA ── */
+    .cta { background: var(--text); color: #fff; padding: 3rem 2rem; text-align: center; position: relative; overflow: hidden; }
+    .cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at bottom left, rgba(249,115,22,.12), transparent 60%); pointer-events: none; }
+    .cta-inner { position: relative; max-width: 520px; margin: 0 auto; }
+    .cta-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #64748b; margin-bottom: .5rem; }
+    .cta h2 { font-size: 1.4rem; font-weight: 900; line-height: 1.2; margin-bottom: .75rem; }
+    .cta p { font-size: .85rem; color: #94a3b8; line-height: 1.6; margin-bottom: 1.25rem; }
+    .cta-list { list-style: none; padding: 0; margin: 0 0 1.25rem; text-align: left; max-width: 320px; margin-left: auto; margin-right: auto; }
+    .cta-list li { font-size: .82rem; color: #e2e8f0; padding: .3rem 0 .3rem 1.2rem; position: relative; line-height: 1.5; }
+    .cta-list li::before { content: ''; position: absolute; left: 0; top: .65rem; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .cta-btn { display: inline-flex; align-items: center; gap: .4rem; background: var(--accent); color: #fff; text-decoration: none; padding: .75rem 1.5rem; border-radius: 8px; font-size: .9rem; font-weight: 700; transition: background .15s; }
+    .cta-btn:hover { background: #ea580c; }
+    .cta-proof { font-size: .68rem; color: #64748b; margin-top: .75rem; }
+  </style>
+</head>
+<body>
+
+<!-- PDF BAR -->
+<div class="pdf-bar">
+  <span class="pdf-bar__text">Маркетинговая диагностика · Пластиковые окна и остекление, Самара и Самарская область</span>
+  <a href="/report/preview/pdf" class="pdf-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Скачать PDF
+  </a>
+</div>
+
+<!-- COVER -->
+
+
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-brand">Алмаз Гатауллин · Системный маркетинг</div>
+    <h1 class="cover-title">Маркетинговая диагностика:<br><span>Пластиковые окна и остекление</span></h1>
+    
+    
+    <div style="margin-top:.75rem;padding:.6rem 1rem;background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.25);border-radius:8px;font-size:.95rem;font-weight:700;color:#fed7aa;line-height:1.4;">Рынок окон Самары: 250+ компаний, 8-12 млрд руб./год, рост 6-8%</div>
+    
+    <div class="cover-meta">
+      <div class="cover-chip"><strong>Пример</strong></div>
+      <div class="cover-chip">Оконная компания (пример)</div>
+      <div class="cover-chip">Самара и Самарская область</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCORES BAR -->
+
+<div class="scores-bar">
+  <div class="scores-bar-inner">
+    <div class="score-item">
+      <div class="score-val">7<span style="font-size:.7rem;color:#64748b">/10</span></div>
+      <div class="score-lbl">Привлекательность рынка</div>
+    </div>
+    <div class="score-item">
+      <div class="score-val">5<span style="font-size:.7rem;color:#64748b">/10</span></div>
+      <div class="score-lbl">Конкурентная позиция</div>
+    </div>
+    <div class="score-item">
+      <div class="score-val">7<span style="font-size:.7rem;color:#64748b">/10</span></div>
+      <div class="score-lbl">Потенциал роста</div>
+    </div>
+    <div class="score-item">
+      <div class="score-val">3<span style="font-size:.7rem;color:#64748b">/10</span></div>
+      <div class="score-lbl">Зрелость маркетинга</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- HERO METRICS -->
+
+
+
+<div class="hero-metrics">
+  <div class="hero-metrics-inner">
+    
+    <div class="hm-card">
+      <div class="hm-val hm-val--blue">8-12 млрд ₽</div>
+      <div class="hm-lbl">Объём рынка окон в регионе/год</div>
+      <div class="hm-src">Оценка по данным ОКНА МЕДИА, 2025</div>
+    </div>
+    
+    <div class="hm-card">
+      <div class="hm-val hm-val--blue">3,1 млн</div>
+      <div class="hm-lbl">Население Самарской области</div>
+      <div class="hm-src">Росстат, 2025</div>
+    </div>
+    
+    <div class="hm-card">
+      <div class="hm-val hm-val--orange">250+</div>
+      <div class="hm-lbl">Оконных компаний в регионе</div>
+      <div class="hm-src">2ГИС, Яндекс.Карты, 2026</div>
+    </div>
+    
+    <div class="hm-card">
+      <div class="hm-val hm-val--green">35-80 тыс. ₽</div>
+      <div class="hm-lbl">Средний чек за одно окно с установкой</div>
+      <div class="hm-src">Анализ цен, Q1 2026</div>
+    </div>
+    
+    <div class="hm-card">
+      <div class="hm-val hm-val--orange">65%</div>
+      <div class="hm-lbl">Доля замены старых окон в спросе</div>
+      <div class="hm-src">Оценка отраслевых экспертов</div>
+    </div>
+    
+    <div class="hm-card">
+      <div class="hm-val hm-val--green">+6-8%</div>
+      <div class="hm-lbl">Рост рынка в год</div>
+      <div class="hm-src">ОКНА МЕДИА, 2025</div>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- TAB NAV -->
+<div class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" data-tab="t01"><span class="tab-num">01</span> Рынок</button>
+    <button class="tab-btn" data-tab="t02"><span class="tab-num">02</span> Структура + ICP</button>
+    <button class="tab-btn" data-tab="t03"><span class="tab-num">03</span> Конкуренты + CJM</button>
+    <button class="tab-btn" data-tab="t04" style="border-left:2px solid var(--accent);margin-left:.5rem;padding-left:1rem;"><span class="tab-num" style="color:var(--accent);">04</span> Ваша позиция</button>
+    <button class="tab-btn" data-tab="t05"><span class="tab-num" style="color:var(--accent);">05</span> Деньги · Риски · Действия</button>
+  </div>
+</div>
+
+<!-- EXECUTIVE SUMMARY — above tabs -->
+
+
+
+<div style="max-width:1040px;margin:0 auto;padding:1.25rem 1.5rem;">
+  
+  <div class="exec-summary">Рынок пластиковых окон и остекления в Самаре, зрелый и конкурентный: 250+ компаний, включая федеральные сети, местные заводы и сотню частных монтажников. Основные сегменты: замена окон в квартирах (60-65%), остекление балконов (15%), ИЖС (10-12%), коммерческое остекление (8-10%). Клиент сравнивает 3-5 предложений и принимает решение за 1-3 недели. Побеждает не тот, кто дешевле, а тот, кто быстрее приехал на замер, внятнее объяснил и оставил лучшее впечатление. Главные точки роста, работа с отзывами на картах (85% клиентов смотрят перед звонком), скорость реакции (замер в день обращения), системная работа с базой клиентов (повторные продажи балконов и рекомендации).</div>
+  
+  
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:.5rem;">
+    
+    <div class="conc-item"><div class="conc-num">1</div><div class="conc-text">250+ оконных компаний в Самаре, но большинство конкурируют только ценой, это гонка на дно. Кто отстроится сервисом и репутацией, тот выиграет</div></div>
+    
+    <div class="conc-item"><div class="conc-num">2</div><div class="conc-text">Клиент вызывает 3-5 замерщиков. Решение принимает по впечатлению от человека, а не по цене. Замерщик, главный продавец компании</div></div>
+    
+    <div class="conc-item"><div class="conc-num">3</div><div class="conc-text">85% клиентов смотрят отзывы на картах перед звонком. Компания с 4.8 и 200 отзывами получает в 3-4 раза больше обращений, чем компания с 4.2 и 30 отзывами</div></div>
+    
+    <div class="conc-item"><div class="conc-num">4</div><div class="conc-text">ИЖС, самый маржинальный сегмент: средний чек 300-800 тыс. руб., конкуренция ниже, но требует экспертизы и портфолио</div></div>
+    
+    <div class="conc-item"><div class="conc-num">5</div><div class="conc-text">Тёплое остекление балконов растёт, вытесняя холодное. Средний чек вдвое выше, конверсия в тёплое, 40-50% при правильной презентации</div></div>
+    
+    <div class="conc-item"><div class="conc-num">6</div><div class="conc-text">После монтажа про клиента забывают. Через год ему нужен балкон, и он заказывает у другой компании, потому что вы не напомнили</div></div>
+    
+    <div class="conc-item"><div class="conc-num">7</div><div class="conc-text">Зимой загрузка падает вдвое. Зимние акции со скидкой 15-25% решают две задачи: загрузка бригад и привлечение экономных клиентов</div></div>
+    
+    <div class="conc-item"><div class="conc-num">8</div><div class="conc-text">Скорость реакции решает: кто приехал на замер в день обращения и прислал КП за 2 часа, тот получил заказ</div></div>
+    
+    <div class="conc-item"><div class="conc-num">9</div><div class="conc-text">Частники демпингуют на 30-40%, но не дают гарантий. Гарантия 5 лет с выездом, это отстройка, которая стоит 0 рублей</div></div>
+    
+    <div class="conc-item"><div class="conc-num">10</div><div class="conc-text">Партнёрство с УК и ТСЖ, незанятая ниша. Предложение жителям дома от лица управляющей компании даёт массовые заказы без рекламного бюджета</div></div>
+    
+  </div>
+  
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 01: MARKET OVERVIEW (Part 1)                   -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="tab-panel active" id="t01">
+  <div class="panel-body">
+    <div class="sh">
+      <div class="sh-num">01</div>
+      <div class="sh-title">Обзор рынка</div>
+      <div class="sh-badge">Часть 1 · Исследование ниши</div>
+      
+    </div>
+
+    <div class="grid-2">
+      
+      
+      
+      
+      
+      <div class="card"><div class="kv-label">Специфика региона</div><div class="kv-value">Самара, город-миллионник (1,14 млн чел.), агломерация с Тольятти и Новокуйбышевском, 2,7 млн. Самарская область, 3,1 млн. Континентальный климат: зимой до -30C, летом до +40C, это формирует высокие требования к теплоизоляции и стойкости профиля. Средняя зарплата в регионе ~50-60 тыс. руб. Бюджетный сегмент доминирует (60% продаж), но спрос на премиум (5+ камер, Rehau Grazio, тёплые пакеты) растёт на 10-15% ежегодно.</div></div>
+      
+    </div>
+
+    <!-- Trend chart -->
+    
+
+    <!-- Niche Pyramid -->
+    
+    
+    <div class="sub-h" style="border-left-color:var(--accent);margin-top:2rem;">Сколько здесь денег для вас</div>
+    <div class="card" style="padding:1.5rem;">
+      <div style="display:flex;flex-direction:column;gap:.5rem;">
+        
+        
+        <div style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:100%;max-width:200px;height:32px;background:var(--text);opacity:.15;border-radius:4px;flex-shrink:0;position:relative;">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--text);opacity:1;">Объём ниши</div>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.45;flex:1;">~8-12 млрд руб./год по Самарской области: ПВХ-окна жилые ~5-6 млрд, балконное остекление ~1,5-2 млрд, коммерческое остекление ~1-2 млрд, ИЖС (окна + двери) ~1-1,5 млрд</div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:75%;max-width:200px;height:32px;background:var(--blue);opacity:.15;border-radius:4px;flex-shrink:0;position:relative;">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--blue);opacity:1;">Горячий рынок</div>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.45;flex:1;">Активный спрос: замена окон в квартирах, остекление балконов и лоджий. Яндекс Вордстат: пластиковые окна Самара ~12 000 пок./мес, остекление балконов Самара ~4 500/мес, окна ПВХ Самара ~6 000/мес</div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:50%;max-width:200px;height:32px;background:var(--purple);opacity:.15;border-radius:4px;flex-shrink:0;position:relative;">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--purple);opacity:1;">Доступный рынок</div>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.45;flex:1;">Для средней оконной компании с 1-2 точками продаж реально 80-200 млн руб./год при системном маркетинге и нормальном сервисе</div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:.75rem;">
+          <div style="width:30%;max-width:200px;height:32px;background:var(--accent);opacity:.15;border-radius:4px;flex-shrink:0;position:relative;">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:var(--accent);opacity:1;">Ваш потолок</div>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.45;flex:1;">При текущей пропускной способности одной бригады монтажников (3-4 заказа в неделю) и одной точки продаж: 40-80 млн руб./год. С двумя-тремя бригадами и двумя точками: 120-250 млн руб./год</div>
+        </div>
+        
+        
+        <div style="margin-top:.5rem;padding:.5rem .75rem;background:var(--accent-light);border:1px solid var(--accent-border);border-radius:8px;font-size:.82rem;font-weight:600;color:var(--accent);">
+          Зона роста: Рост: остекление ИЖС и коттеджей (бюджеты от 300 тыс.), тёплое остекление балконов, входные группы для коммерческих объектов, окна с повышенной шумоизоляцией. Эти сегменты маржинальнее стандартных ПВХ-окон и менее конкурентны
+        </div>
+        
+      </div>
+    </div>
+    
+
+    
+    <div class="grid-2" style="margin-top:.75rem;">
+      <div class="card"><div class="kv-label">Количество игроков</div><div class="kv-value mono">250+ оконных компаний в Самаре и области. Крупнейшие: Окна Века (дилер Veka), БФК (местный завод), СОК (Самарская оконная компания), Горница, Калева Самара (федеральная сеть), Рехау Партнёр. Плюс 100+ частных монтажников и бригад без офиса.</div></div>
+      
+    </div>
+    
+
+    
+    <div class="sub-h">Драйверы роста</div>
+    <div class="card">
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Замена окон в домах советской постройки</strong>
+            <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">В Самаре более 60% жилого фонда построено до 1990 года. Деревянные окна в этих домах требуют замены. Это базовый спрос, который будет генерироваться ещё 10-15 лет.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Ввод нового жилья и рост ИЖС</strong>
+            <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">Самарская область вводит 1,5-2 млн кв. м жилья ежегодно. Каждая квартира в новостройке и каждый частный дом требуют остекления. ИЖС растёт на 15-20% в год и даёт высокий средний чек.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Рост цен на отопление и спрос на энергосбережение</strong>
+            <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">Тарифы на тепло растут ежегодно на 8-12%. Клиенты всё чаще выбирают многокамерные профили и энергосберегающие стеклопакеты, что поднимает средний чек.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Остекление балконов и лоджий как отдельный сегмент</strong>
+            <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">Тёплое и холодное остекление балконов, устойчивый спрос. Тёплое остекление растёт: клиенты хотят использовать балкон как жилое пространство. Средний чек 40-120 тыс. руб.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Программы капитального ремонта МКД</strong>
+            <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">Программы капремонта включают замену окон в подъездах и местах общего пользования. Для компаний с опытом участия в тендерах это дополнительный канал объёмных заказов.</div>
+        </div>
+      </div>
+      
+    </div>
+    
+
+    
+    <div class="sub-h">Барьеры входа</div>
+    <div class="card">
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Высокая конкуренция и ценовой демпинг</strong>
+            <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">250+ игроков, включая частников, демпингуют цены. Выделиться без чёткого позиционирования практически невозможно, клиент видит одинаковые предложения.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Зависимость от поставщиков профиля</strong>
+            <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">Основные профильные системы (Rehau, Veka, KBE, Salamander) диктуют условия дилерам. Маржа дилера зажата между ценой профиля и конкурентной ценой на рынке.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Дефицит квалифицированных монтажников</strong>
+            <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">Качество установки определяет 50% удовлетворённости клиента. Найти и удержать хорошую бригаду, одна из главных проблем. Плохой монтаж = рекламации и репутационные потери.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Рост стоимости привлечения клиента</strong>
+            <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">CPL в Яндекс.Директ для окон в Самаре: 1 200-3 000 руб. и растёт. Конкуренция за верхние позиции в поиске обостряется каждый сезон.</div>
+        </div>
+      </div>
+      
+      <div class="driver-row">
+        <div style="flex:1;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.2rem;">
+            <strong style="font-size:.85rem;">Сезонность спроса</strong>
+            <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+          </div>
+          <div style="font-size:.8rem;color:var(--text2);line-height:1.5;">70% заказов приходится на апрель-октябрь. Зимой загрузка падает вдвое, но фонд оплаты труда и аренда остаются. Нужно уметь сглаживать сезонность.</div>
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <div class="grid-2" style="margin-top:1rem;">
+      
+      
+      
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 03: MARKET STRUCTURE                           -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="tab-panel" id="t02">
+  <div class="panel-body">
+    <div class="sh">
+      <div class="sh-num">02</div>
+      <div class="sh-title">Структура рынка + ICP</div>
+      <div class="sh-badge">Часть 1 · Исследование ниши</div>
+    </div>
+
+    <!-- Key Trends -->
+    
+    <div class="sub-h">Ключевые тренды</div>
+    
+    <div class="trend-card">
+      <div class="trend-head">
+        <span class="trend-title">ИЖС становится главным драйвером маржинальности</span>
+        <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+      </div>
+      <div class="trend-desc">Индивидуальное строительство в Самарской области растёт на 15-20% в год. Средний заказ на окна и двери для частного дома, 300-800 тыс. руб. Это в 3-5 раз выше, чем средний заказ на квартиру. Конкуренция в этом сегменте ниже, потому что частники и мелкие компании не умеют работать с проектной документацией и сложными конфигурациями.</div>
+      <div class="trend-meta">
+        <span class="tag tag-blue">2025-2028</span>
+        <span class="tag tag-green">Выделить ИЖС как отдельное направление с персональным менеджером, портфолио объектов и калькулятором для загородного дома.</span>
+      </div>
+    </div>
+    
+    <div class="trend-card">
+      <div class="trend-head">
+        <span class="trend-title">Клиент сравнивает 5-7 компаний перед выбором</span>
+        <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+      </div>
+      <div class="trend-desc">Средний покупатель окон вызывает замерщиков из 3-5 компаний и получает 5-7 коммерческих предложений. Решение принимается за 1-3 недели. Побеждает не тот, кто дешевле, а тот, кто быстрее приехал на замер, внятнее объяснил и оставил лучшее впечатление.</div>
+      <div class="trend-meta">
+        <span class="tag tag-blue">2025-2027</span>
+        <span class="tag tag-green">Скорость реакции, главное конкурентное преимущество. Замер в день обращения или на следующий день. Коммерческое предложение, в течение 2 часов после замера.</span>
+      </div>
+    </div>
+    
+    <div class="trend-card">
+      <div class="trend-head">
+        <span class="trend-title">Тёплое остекление балконов вытесняет холодное</span>
+        <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+      </div>
+      <div class="trend-desc">Раньше балконы остекляли алюминием, чтобы защитить от дождя. Сейчас клиенты всё чаще хотят тёплое остекление, чтобы использовать балкон круглый год. Средний чек тёплого остекления вдвое выше холодного, 70-120 тыс. руб. против 30-50 тыс.</div>
+      <div class="trend-meta">
+        <span class="tag tag-blue">2025-2027</span>
+        <span class="tag tag-green">Показывать клиенту разницу: сколько стоит тёплое, сколько холодное, что получает за разницу в цене. Конвертация в тёплое, 40-50% при правильной презентации.</span>
+      </div>
+    </div>
+    
+    <div class="trend-card">
+      <div class="trend-head">
+        <span class="trend-title">Отзывы и рейтинги определяют выбор</span>
+        <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+      </div>
+      <div class="trend-desc">85% клиентов перед вызовом замерщика смотрят отзывы на Яндекс.Картах и 2ГИС. Компания с рейтингом 4.8 и 200 отзывами получает в 3-4 раза больше обращений, чем компания с 4.2 и 30 отзывами. При этом большинство оконных компаний Самары не работают с отзывами системно.</div>
+      <div class="trend-meta">
+        <span class="tag tag-blue">2025-2026</span>
+        <span class="tag tag-green">После каждого монтажа просить отзыв. Цель: 4.7+ и 200+ отзывов на картах. Это бесплатный источник трафика, который работает 24/7.</span>
+      </div>
+    </div>
+    
+    <div class="trend-card">
+      <div class="trend-head">
+        <span class="trend-title">Рост доли онлайн-заявок и калькуляторов</span>
+        <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+      </div>
+      <div class="trend-desc">60-70% первичных обращений приходят через интернет: Яндекс.Директ, карты, сайт с калькулятором. Компании без нормального сайта и калькулятора теряют этот трафик. При этом онлайн-калькулятор даёт конверсию в лид на 30-40% выше, чем обычная форма заявки.</div>
+      <div class="trend-meta">
+        <span class="tag tag-blue">2025-2027</span>
+        <span class="tag tag-green">Калькулятор на сайте, обязательный инструмент. Клиент хочет понять примерную цену до звонка. Калькулятор + обратный звонок = лучшая связка для генерации лидов.</span>
+      </div>
+    </div>
+    
+    
+
+    <!-- Service Segments chart + cards -->
+    
+    <div class="sub-h">Сегменты услуг</div>
+
+    
+    
+    <div class="chart-card" style="margin-bottom:.75rem;">
+      <div class="chart-title"><span>Маржинальность и спрос по сегментам</span><span class="chart-badge">% / балл</span></div>
+      <div class="chart-canvas-wrap" style="height:220px;">
+        <canvas id="chartSegments"></canvas>
+      </div>
+    </div>
+    
+
+    <div class="grid-2">
+      
+      <div class="seg-card">
+        <div class="seg-name">ПВХ-окна для квартир (замена и новостройки)</div>
+        <div class="seg-desc">Основной массовый продукт, замена старых деревянных окон на пластиковые в квартирах, а также остекление квартир в новостройках. Типовые размеры, стандартные профили.</div>
+        
+        <div class="seg-stats">
+          
+          
+          
+          
+        </div>
+        
+      </div>
+      
+      <div class="seg-card">
+        <div class="seg-name">Остекление балконов и лоджий (холодное, алюминиевое)</div>
+        <div class="seg-desc">Алюминиевые раздвижные системы для защиты от осадков и ветра. Не утепляют, но закрывают проём. Популярно в панельных домах с маленькими балконами.</div>
+        
+        <div class="seg-stats">
+          
+          
+          
+          
+        </div>
+        
+      </div>
+      
+      <div class="seg-card">
+        <div class="seg-name">Тёплое остекление балконов и лоджий</div>
+        <div class="seg-desc">ПВХ-профиль или тёплый алюминий для превращения балкона в жилое пространство. Требует утепления пола, потолка и парапета. Более сложный монтаж.</div>
+        
+        <div class="seg-stats">
+          
+          
+          
+          
+        </div>
+        
+      </div>
+      
+      <div class="seg-card">
+        <div class="seg-name">Входные группы и коммерческое остекление</div>
+        <div class="seg-desc">Алюминиевые и ПВХ-входные группы для магазинов, офисов, подъездов. Витрины, перегородки, тамбуры. Работа по договорам с юрлицами и управляющими компаниями.</div>
+        
+        <div class="seg-stats">
+          
+          
+          
+          
+        </div>
+        
+      </div>
+      
+      <div class="seg-card">
+        <div class="seg-name">Окна и двери для коттеджей и ИЖС</div>
+        <div class="seg-desc">Остекление частных домов: нестандартные размеры, панорамные окна, входные и балконные двери, раздвижные порталы. Высокий средний чек, сложные конфигурации.</div>
+        
+        <div class="seg-stats">
+          
+          
+          
+          
+        </div>
+        
+      </div>
+      
+    </div>
+    
+
+    <!-- Client Avatars (ICP) -->
+    
+    <div class="sub-h">Профили клиентов (ICP)</div>
+    
+    
+    
+    <div class="icp">
+      <div class="icp-head">
+        <div class="icp-initials">МА</div>
+        <div>
+          <div class="icp-name">Марина <span style="font-weight:400;font-size:.82rem;color:var(--text2);">· 35-50</span></div>
+          <div class="icp-role">Хозяйка квартиры в панельном доме, инициатор замены окон</div>
+          <div class="icp-desc">Живёт в квартире 60-80 кв. м, дом построен в 1970-1990-х. Семья с детьми. Доход семьи 80-150 тыс. руб./мес. Решение о замене окон принимает сама или вместе с мужем.</div>
+          
+        </div>
+      </div>
+
+      
+      <div class="icp-jtbd">
+        <div class="icp-jtbd-label">Job to be Done</div>
+        <div class="icp-jtbd-text">Когда я чувствую, что зимой из окон дует и в квартире холодно, я хочу поменять окна на тёплые и качественные, чтобы в квартире стало комфортно, тепло и тихо, и больше не возвращаться к этому вопросу 15-20 лет</div>
+      </div>
+      
+
+      <div class="icp-body">
+        
+        <div>
+          <div class="icp-block-title">Триггеры покупки</div>
+          <ul class="icp-list"><li>Зимой из окон дует, на подоконнике конденсат</li><li>Соседи поменяли окна и рассказали, как стало тепло</li><li>Ребёнок спит у окна, мама переживает за сквозняки</li><li>Начали ремонт в квартире, окна, логичная часть</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Страхи и возражения</div>
+          <ul class="icp-list"><li>Поставят кривые окна и потом не дозвонишься</li><li>Монтажники нахамят или испортят откосы</li><li>Заплатим больше, чем у соседей, за то же самое</li><li>Через год окна начнут запотевать или продувать</li><li>Обманут с профилем, поставят дешёвый вместо заказанного</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Критерии выбора</div>
+          <ul class="icp-list"><li>Отзывы и рейтинг на картах</li><li>Цена в сравнении с 3-5 другими предложениями</li><li>Гарантия на окна и монтаж</li><li>Скорость выполнения заказа</li><li>Внятный замерщик, который объяснит без снисхождения</li></ul>
+        </div>
+        
+        
+        
+        <div class="icp-full">
+          <div class="icp-block-title">Типичные возражения</div>
+          <ul class="icp-list"><li>Дорого, у других дешевле: Покажите, из чего складывается цена. Дешёвые окна экономят на монтаже и фурнитуре, а это 50% результата</li><li>Зимой ставить нельзя: Современные технологии позволяют монтировать окна при -15C. Зимой скидки 15-25% и нет очереди</li><li>Я не разбираюсь в профилях: Мы покажем образцы и объясним разницу за 5 минут. Не нужно быть экспертом, нужно понимать, что вы получаете</li><li>Надо посоветоваться с мужем: Приглашайте вместе на замер, замерщик всё покажет и ответит на вопросы обоих</li></ul>
+        </div>
+        
+      </div>
+
+      
+      <div class="icp-meta-row">
+        <div class="icp-meta-item"><div class="icp-meta-label">Процесс принятия решения</div><div class="icp-meta-value">Участники: Жена (инициатор) + муж (одобряет бюджет). Срок: 1-3 недели от замера до заказа. Этапы: Поиск компаний, Вызов 3-5 замерщиков, Сравнение предложений, Обсуждение с мужем, Заказ</div></div>
+        
+        <div class="icp-meta-item"><div class="icp-meta-label">Ценовая чувствительность</div><div class="icp-meta-value">Средняя. Не берёт самое дешёвое, но и не готова переплачивать без объяснения. Ищет баланс цены и надёжности.</div></div>
+        
+      </div>
+      
+
+      
+
+      
+      
+      <div class="icp-potential">
+        
+        
+        <div class="icp-pot-item"><div class="icp-pot-label">Объём рынка</div><div class="icp-pot-value">~4-5 млрд ₽</div></div>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div class="icp">
+      <div class="icp-head">
+        <div class="icp-initials">АН</div>
+        <div>
+          <div class="icp-name">Андрей <span style="font-weight:400;font-size:.82rem;color:var(--text2);">· 30-45</span></div>
+          <div class="icp-role">Владелец строящегося или недавно построенного частного дома</div>
+          <div class="icp-desc">Строит или достраивает дом 120-250 кв. м в пригороде Самары (Красноглинский район, Кинель, Волжский район). Бюджет на остекление 300-800 тыс. руб. Принимает решения сам, иногда консультируется с прорабом или архитектором.</div>
+          
+        </div>
+      </div>
+
+      
+      <div class="icp-jtbd">
+        <div class="icp-jtbd-label">Job to be Done</div>
+        <div class="icp-jtbd-text">Когда я строю свой дом и дошёл до этапа остекления, я хочу найти компанию, которая сделает нестандартные окна качественно и в срок, чтобы не задерживать стройку и получить результат, которым буду доволен 20 лет</div>
+      </div>
+      
+
+      <div class="icp-body">
+        
+        <div>
+          <div class="icp-block-title">Триггеры покупки</div>
+          <ul class="icp-list"><li>Стройка дошла до этапа установки окон</li><li>Прораб сказал, что пора заказывать окна</li><li>Видел красивые панорамные окна у знакомых</li><li>Хочет закрыть тепловой контур до зимы</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Страхи и возражения</div>
+          <ul class="icp-list"><li>Не уложатся в сроки и стройка встанет</li><li>Не умеют работать с нестандартными размерами и конфигурациями</li><li>Панорамные окна будут промерзать зимой</li><li>Итоговая сумма окажется на 30-50% выше расчётной</li><li>Нет опыта с загородными домами, будут учиться на моём объекте</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Критерии выбора</div>
+          <ul class="icp-list"><li>Опыт работы с загородными домами и нестандартными конструкциями</li><li>Портфолио реализованных объектов</li><li>Соблюдение сроков</li><li>Гарантия и сервис после установки</li><li>Возможность комплексного решения: окна + двери + порталы</li></ul>
+        </div>
+        
+        
+        
+        <div class="icp-full">
+          <div class="icp-block-title">Типичные возражения</div>
+          <ul class="icp-list"><li>Слишком дорого за панорамное остекление: Покажем расчёт теплопотерь. Панорамные окна с мультифункциональным стеклопакетом держат тепло не хуже стены, разница в счетах за отопление 5-10%</li><li>У вас нет портфолио загородных домов: Вот 15 объектов, которые мы сделали за последние 2 года. Можем дать контакты хозяев для обратной связи</li><li>Мой прораб говорит, что дешевле заказать у частника: Частник не даст гарантию, не сделает проект и уедет после монтажа. Если что-то пойдёт не так, звонить некому</li><li>Не уверен в размерах, ещё не всё готово: Мы выезжаем на замер на любом этапе. Можем замерить по проекту и скорректировать перед производством</li></ul>
+        </div>
+        
+      </div>
+
+      
+      <div class="icp-meta-row">
+        <div class="icp-meta-item"><div class="icp-meta-label">Процесс принятия решения</div><div class="icp-meta-value">Участники: Сам хозяин, иногда с прорабом/архитектором. Срок: 2-4 недели (привязка к графику стройки). Этапы: Запрос у 2-3 компаний, Замер на объекте, Согласование проекта и сметы, Договор и предоплата, Производство, Монтаж</div></div>
+        
+        <div class="icp-meta-item"><div class="icp-meta-label">Ценовая чувствительность</div><div class="icp-meta-value">Умеренная. Готов платить за качество и надёжность, но хочет понимать, за что платит. Сравнивает 2-3 предложения.</div></div>
+        
+      </div>
+      
+
+      
+
+      
+      
+      <div class="icp-potential">
+        
+        
+        <div class="icp-pot-item"><div class="icp-pot-label">Объём рынка</div><div class="icp-pot-value">~3,5-5,5 млрд ₽</div></div>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div class="icp">
+      <div class="icp-head">
+        <div class="icp-initials">ОН</div>
+        <div>
+          <div class="icp-name">Ольга Николаевна <span style="font-weight:400;font-size:.82rem;color:var(--text2);">· 50-65</span></div>
+          <div class="icp-role">Хозяйка квартиры, которая хочет остеклить балкон и сделать его уютным</div>
+          <div class="icp-desc">Живёт в 2-3-комнатной квартире, дети выросли. Хочет превратить балкон или лоджию в зону отдыха, мини-кабинет или оранжерею. Бюджет 50-150 тыс. руб. Принимает решение сама.</div>
+          
+        </div>
+      </div>
+
+      
+      <div class="icp-jtbd">
+        <div class="icp-jtbd-label">Job to be Done</div>
+        <div class="icp-jtbd-text">Когда я вижу, что балкон захламлён и не используется, я хочу его остеклить и утеплить, чтобы получить уютное пространство для отдыха, чтения или цветов, которым смогу пользоваться круглый год</div>
+      </div>
+      
+
+      <div class="icp-body">
+        
+        <div>
+          <div class="icp-block-title">Триггеры покупки</div>
+          <ul class="icp-list"><li>Увидела у подруги красивый утеплённый балкон</li><li>Дети съехали, хочется обновить квартиру</li><li>Устала от пыли и шума с улицы</li><li>На балконе невозможно находиться зимой</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Страхи и возражения</div>
+          <ul class="icp-list"><li>Балкон не выдержит вес тяжёлого остекления</li><li>Зимой на тёплом балконе всё равно будет холодно</li><li>Рабочие затянут ремонт и разведут грязь</li><li>Переплатит за ненужные опции</li><li>После остекления в квартире станет темнее</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Критерии выбора</div>
+          <ul class="icp-list"><li>Аккуратность работы и чистота после монтажа</li><li>Примеры готовых балконов с фото</li><li>Понятное объяснение без технических терминов</li><li>Цена за комплекс работ под ключ</li><li>Гарантия от продувания и промерзания</li></ul>
+        </div>
+        
+        
+        
+        <div class="icp-full">
+          <div class="icp-block-title">Типичные возражения</div>
+          <ul class="icp-list"><li>Боюсь, что балконная плита не выдержит: Перед монтажом проведём осмотр плиты. Если нужно усиление, скажем заранее. Алюминиевые системы весят в 3 раза меньше ПВХ</li><li>Тёплое остекление, это очень дорого: Разница между холодным и тёплым, 25-40 тыс. руб. За эти деньги получаете пространство, которым можно пользоваться 12 месяцев в году, а не 5</li><li>У меня маленький балкон, нет смысла утеплять: Именно маленький балкон быстрее прогревается и может стать уютным кабинетом или зоной для чая. Покажем примеры таких балконов</li><li>Сколько это займёт времени: Стандартный балкон, 2-3 дня на остекление, утепление и отделку. Мебель можно завозить сразу</li></ul>
+        </div>
+        
+      </div>
+
+      
+      <div class="icp-meta-row">
+        <div class="icp-meta-item"><div class="icp-meta-label">Процесс принятия решения</div><div class="icp-meta-value">Участники: Сама. Срок: 1-2 недели. Этапы: Спросила у подруг, Посмотрела в интернете, Вызвала замерщика из 2-3 компаний, Выбрала того, кто понравился больше, Заказала</div></div>
+        
+        <div class="icp-meta-item"><div class="icp-meta-label">Ценовая чувствительность</div><div class="icp-meta-value">Средняя. Не гонится за самым дешёвым, но бюджет ограничен. Готова доплатить за результат под ключ без головной боли.</div></div>
+        
+      </div>
+      
+
+      
+
+      
+      
+      <div class="icp-potential">
+        
+        
+        <div class="icp-pot-item"><div class="icp-pot-label">Объём рынка</div><div class="icp-pot-value">~1,5-2,5 млрд ₽</div></div>
+      </div>
+      
+    </div>
+    
+    
+
+    <!-- Influences / Money / Price -->
+    
+
+    <div class="grid-2" style="margin-top:1rem;">
+      
+      
+      
+    </div>
+
+    
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 03: COMPETITORS + CJM (Part 1)                 -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="tab-panel" id="t03">
+  <div class="panel-body">
+    <div class="sh">
+      <div class="sh-num">03</div>
+      <div class="sh-title">Конкуренты + Путь клиента</div>
+      <div class="sh-badge">Часть 1 · Исследование ниши</div>
+    </div>
+
+    
+    <div class="cjm-card">
+      <div class="cjm-stage">
+        <span class="cjm-stage-num">1</span>
+        Триггер
+        <span class="cjm-emotion">Раздражение от текущей ситуации, но без ощущения срочности. Легко откладывает на следующий сезон.</span>
+      </div>
+
+      
+      <div style="font-size:.85rem;color:var(--text);margin-bottom:.5rem;"><strong>Цель:</strong> Клиент осознаёт, что нужны новые окна или остекление балкона</div>
+      
+
+      
+      <div class="cjm-thoughts">Опять всю зиму дует из окон. Сколько можно терпеть. Надо узнать, сколько стоит поменять. Соседи вроде поменяли и довольны.</div>
+      
+
+      <div class="cjm-grid">
+        
+        <div>
+          <div class="icp-block-title">Точки контакта</div>
+          <ul class="ul-clean"><li>Зимний холод из старых окон</li><li>Шум с улицы</li><li>Соседи поменяли окна</li><li>Начало ремонта в квартире</li><li>Стройка дома дошла до остекления</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Действия клиента</div>
+          <ul class="ul-clean"><li>Обсуждает с семьёй необходимость замены</li><li>Примерно прикидывает бюджет</li><li>Спрашивает у знакомых, кто ставил</li></ul>
+        </div>
+        
+        
+        
+        <div>
+          <div class="icp-block-title">Возможности</div>
+          <ul class="ul-clean"><li>Контент о теплопотерях через старые окна, создаёт ощущение срочности</li><li>Калькулятор экономии на отоплении после замены окон</li><li>Зимние скидки как триггер решения: сделай сейчас, пока дешевле</li></ul>
+        </div>
+        
+      </div>
+
+      
+    </div>
+    
+    <div class="cjm-card">
+      <div class="cjm-stage">
+        <span class="cjm-stage-num">2</span>
+        Поиск и сравнение
+        <span class="cjm-emotion">Хочет быстро разобраться и сузить выбор до 2-3 компаний. Нет времени на долгие исследования.</span>
+      </div>
+
+      
+      <div style="font-size:.85rem;color:var(--text);margin-bottom:.5rem;"><strong>Цель:</strong> Клиент ищет компании, сравнивает цены и отзывы</div>
+      
+
+      
+      <div class="cjm-thoughts">Столько компаний, все обещают одно и то же. У этих 4.9 и 300 отзывов, у тех 4.2 и 15. Калькулятор показал 120 тысяч за 3 окна, ну, нормально. Вызову замерщика.</div>
+      
+
+      <div class="cjm-grid">
+        
+        <div>
+          <div class="icp-block-title">Точки контакта</div>
+          <ul class="ul-clean"><li>Яндекс поиск: пластиковые окна Самара</li><li>Яндекс.Карты и 2ГИС: оконные компании рядом</li><li>Рекомендации знакомых</li><li>Авито: окна и монтаж</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Действия клиента</div>
+          <ul class="ul-clean"><li>Смотрит рейтинги и отзывы на картах</li><li>Открывает 3-5 сайтов, ищет цены</li><li>Пробует калькулятор, если есть</li><li>Оставляет заявки на замер в 3-5 компаниях</li></ul>
+        </div>
+        
+        
+        
+        <div>
+          <div class="icp-block-title">Возможности</div>
+          <ul class="ul-clean"><li>Калькулятор на сайте, моментальная примерная цена</li><li>Обратный звонок в течение 15 минут</li><li>4.8+ на картах и 200+ отзывов, сразу доверие</li></ul>
+        </div>
+        
+      </div>
+
+      
+    </div>
+    
+    <div class="cjm-card">
+      <div class="cjm-stage">
+        <span class="cjm-stage-num">3</span>
+        Замер
+        <span class="cjm-emotion">Формирует впечатление о компании. 70% решения принимается на этапе замера, по человеку, а не по цене.</span>
+      </div>
+
+      
+      <div style="font-size:.85rem;color:var(--text);margin-bottom:.5rem;"><strong>Цель:</strong> Замерщик приезжает, измеряет проёмы, консультирует по вариантам</div>
+      
+
+      
+      <div class="cjm-thoughts">Этот замерщик пришёл в бахилах, всё замерил аккуратно, показал образцы, объяснил разницу. Чувствую, что ему можно доверять. Цена вроде нормальная. Подожду ещё двух.</div>
+      
+
+      <div class="cjm-grid">
+        
+        <div>
+          <div class="icp-block-title">Точки контакта</div>
+          <ul class="ul-clean"><li>Звонок для назначения замера</li><li>Визит замерщика на дом</li><li>Показ образцов профиля и стеклопакетов</li><li>Расчёт стоимости на месте или в течение 2 часов</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Действия клиента</div>
+          <ul class="ul-clean"><li>Принимает замерщика дома</li><li>Задаёт вопросы о профилях и разнице между ними</li><li>Получает расчёт стоимости</li><li>Сравнивает с предложениями других компаний</li></ul>
+        </div>
+        
+        
+        
+        <div>
+          <div class="icp-block-title">Возможности</div>
+          <ul class="ul-clean"><li>Замерщик-консультант: не продаёт, а помогает выбрать</li><li>Образцы профиля и стеклопакетов на замере, наглядно</li><li>КП в течение 2 часов с визуализацией: что ставим, сколько стоит, почему</li></ul>
+        </div>
+        
+      </div>
+
+      
+    </div>
+    
+    <div class="cjm-card">
+      <div class="cjm-stage">
+        <span class="cjm-stage-num">4</span>
+        Решение и договор
+        <span class="cjm-emotion">Хочет определиться и больше не думать об этом. Выбирает того, кто вызвал больше доверия.</span>
+      </div>
+
+      
+      <div style="font-size:.85rem;color:var(--text);margin-bottom:.5rem;"><strong>Цель:</strong> Клиент выбирает компанию и подписывает договор</div>
+      
+
+      
+      <div class="cjm-thoughts">У всех примерно одинаково по цене, плюс-минус 10%. Но вот эти быстрее приехали, нормально всё объяснили и прислали красивое предложение. Пойду к ним.</div>
+      
+
+      <div class="cjm-grid">
+        
+        <div>
+          <div class="icp-block-title">Точки контакта</div>
+          <ul class="ul-clean"><li>Повторный звонок менеджера</li><li>Обсуждение с семьёй</li><li>Подписание договора и внесение предоплаты</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Действия клиента</div>
+          <ul class="ul-clean"><li>Сравнивает 3-5 коммерческих предложений</li><li>Обсуждает с мужем/женой</li><li>Задаёт уточняющие вопросы по гарантии и срокам</li><li>Подписывает договор, вносит предоплату</li></ul>
+        </div>
+        
+        
+        
+        <div>
+          <div class="icp-block-title">Возможности</div>
+          <ul class="ul-clean"><li>Перезвонить через 1-2 дня после замера: Добрый день, вы определились?</li><li>Прозрачный договор без мелкого шрифта</li><li>Рассрочка от компании или банка-партнёра</li></ul>
+        </div>
+        
+      </div>
+
+      
+    </div>
+    
+    <div class="cjm-card">
+      <div class="cjm-stage">
+        <span class="cjm-stage-num">5</span>
+        Производство и монтаж
+        <span class="cjm-emotion">Ожидание и лёгкая тревога. После качественного монтажа, удовлетворение и облегчение.</span>
+      </div>
+
+      
+      <div style="font-size:.85rem;color:var(--text);margin-bottom:.5rem;"><strong>Цель:</strong> Клиент получает готовые окна, монтаж проходит качественно и аккуратно</div>
+      
+
+      
+      <div class="cjm-thoughts">Ребята пришли вовремя, надели бахилы, застелили пол плёнкой. Работают аккуратно. Через 4 часа всё было готово, мусор убрали. Приятно.</div>
+      
+
+      <div class="cjm-grid">
+        
+        <div>
+          <div class="icp-block-title">Точки контакта</div>
+          <ul class="ul-clean"><li>SMS/звонок о готовности окон</li><li>Согласование даты монтажа</li><li>Работа бригады на объекте</li><li>Приёмка работ</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Действия клиента</div>
+          <ul class="ul-clean"><li>Ждёт производства (5-14 дней)</li><li>Принимает бригаду монтажников</li><li>Контролирует процесс (если дома)</li><li>Принимает работу и подписывает акт</li></ul>
+        </div>
+        
+        
+        
+        <div>
+          <div class="icp-block-title">Возможности</div>
+          <ul class="ul-clean"><li>Уведомления о статусе заказа: принят в производство, готов, дата монтажа</li><li>Стандарт чистоты: бахилы, плёнка, уборка после себя</li><li>Финальный обход с клиентом: показать, как работает фурнитура, как проветривать</li></ul>
+        </div>
+        
+      </div>
+
+      
+    </div>
+    
+    <div class="cjm-card">
+      <div class="cjm-stage">
+        <span class="cjm-stage-num">6</span>
+        Пост-монтаж и удержание
+        <span class="cjm-emotion">Удовлетворение. Именно сейчас клиент максимально расположен к рекомендациям и отзывам.</span>
+      </div>
+
+      
+      <div style="font-size:.85rem;color:var(--text);margin-bottom:.5rem;"><strong>Цель:</strong> Клиент доволен, оставляет отзыв, рекомендует знакомым, возвращается за новыми заказами</div>
+      
+
+      
+      <div class="cjm-thoughts">Окна отличные, тепло, тихо. Кто ставил? А, вот визитка. Надо Наташе посоветовать, она тоже хотела менять.</div>
+      
+
+      <div class="cjm-grid">
+        
+        <div>
+          <div class="icp-block-title">Точки контакта</div>
+          <ul class="ul-clean"><li>Звонок контроля качества через 3-7 дней</li><li>Просьба об отзыве</li><li>Напоминание о балконе или окнах в другие комнаты</li><li>Сервисное обслуживание через год</li></ul>
+        </div>
+        
+        
+        <div>
+          <div class="icp-block-title">Действия клиента</div>
+          <ul class="ul-clean"><li>Пользуется новыми окнами, оценивает результат</li><li>Рассказывает знакомым</li><li>Оставляет отзыв (если попросили)</li><li>Через 1-2 года думает о балконе или окнах для родителей</li></ul>
+        </div>
+        
+        
+        
+        <div>
+          <div class="icp-block-title">Возможности</div>
+          <ul class="ul-clean"><li>Звонок через 3-7 дней: Всё ли нормально? Есть вопросы?</li><li>Просьба об отзыве с QR-кодом на Яндекс.Карты</li><li>Предложение: А балкон не хотите? Для вас скидка 10% как для постоянного клиента</li><li>Напоминание через год: бесплатная регулировка фурнитуры</li></ul>
+        </div>
+        
+      </div>
+
+      
+    </div>
+    
+    <!-- ── COMPETITIVE LANDSCAPE (same tab) ── -->
+    
+    <div class="sh" style="margin-top:2rem;">
+      <div class="sh-num" style="background:var(--accent);color:#fff;">К</div>
+      <div class="sh-title">Конкурентный ландшафт</div>
+    </div>
+
+    
+    <div class="card grid-full"><div class="kv-label">Как конкурируют</div><div class="kv-value">Большинство оконных компаний Самары конкурируют ценой и скидками, это гонка на дно. Федеральные бренды (Калева, Века) работают узнаваемостью профиля. Местные заводы (БФК, СОК) держат клиентов за счёт собственного производства и цен ниже дилерских. Частные монтажники демпингуют на 30-40%, но не дают гарантий. Системной работы с базой клиентов, CRM и повторными продажами не ведёт практически никто.</div></div>
+    
+
+    
+
+    
+    <div class="sub-h">Типы конкурентов</div>
+    
+    <div class="comp-card">
+      <div class="comp-type">
+        <span>Федеральные оконные сети и дилеры</span>
+        
+        <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+        
+      </div>
+      <div class="comp-desc">Калева, Окна Века, Рехау Партнёр. Работают под зонтиком федерального бренда, стандартизированный продукт и сервис. Рекламные бюджеты от производителя.</div>
+      <div class="comp-meta">
+        <span class="tag tag-blue">Доля: 15-20%</span>
+        <span class="tag tag-green">+ Узнаваемый бренд, стандарты качества, маркетинговая поддержка от производителя профиля</span>
+        <span class="tag tag-red">- Негибкие цены, шаблонный подход, слабая работа с нестандартными заказами и ИЖС</span>
+      </div>
+    </div>
+    
+    <div class="comp-card">
+      <div class="comp-type">
+        <span>Местные оконные заводы и производители</span>
+        
+        <span class="impact impact-high"><span class="impact-dot"></span>high</span>
+        
+      </div>
+      <div class="comp-desc">БФК, СОК (Самарская оконная компания), Горница. Собственное производство, контроль цепочки от профиля до монтажа. Работают и в розницу, и с дилерами.</div>
+      <div class="comp-meta">
+        <span class="tag tag-blue">Доля: 15-20%</span>
+        <span class="tag tag-green">+ Собственное производство, конкурентные цены, быстрые сроки, гибкость в нестандартных заказах</span>
+        <span class="tag tag-red">- Слабый маркетинг, устаревшие сайты, не работают с репутацией онлайн</span>
+      </div>
+    </div>
+    
+    <div class="comp-card">
+      <div class="comp-type">
+        <span>Средние дилерские компании (1-3 офиса)</span>
+        
+        <span class="impact impact-medium"><span class="impact-dot"></span>medium</span>
+        
+      </div>
+      <div class="comp-desc">Компании с 1-3 точками продаж, работают на одном или нескольких профильных системах. Основа рынка по количеству.</div>
+      <div class="comp-meta">
+        <span class="tag tag-blue">Доля: 25-30%</span>
+        <span class="tag tag-green">+ Локальное присутствие, личные отношения с клиентами, гибкость в работе</span>
+        <span class="tag tag-red">- Нет масштаба, ограниченный маркетинговый бюджет, зависимость от 1-2 бригад монтажников</span>
+      </div>
+    </div>
+    
+    <div class="comp-card">
+      <div class="comp-type">
+        <span>Частные монтажники и бригады без офиса</span>
+        
+        <span class="impact impact-low"><span class="impact-dot"></span>low</span>
+        
+      </div>
+      <div class="comp-desc">100+ частников в Самаре. Работают через Авито, сарафанное радио, группы в соцсетях. Берут дешевле на 30-40%, не дают официальной гарантии.</div>
+      <div class="comp-meta">
+        <span class="tag tag-blue">Доля: 20-25%</span>
+        <span class="tag tag-green">+ Низкие цены, отсутствие накладных расходов, скорость</span>
+        <span class="tag tag-red">- Нет гарантии, нет офиса, часто низкое качество монтажа, невозможно предъявить претензии</span>
+      </div>
+    </div>
+    
+    
+
+    <!-- Radar Chart -->
+    
+
+    <!-- Advantages / Threats -->
+    
+    <div class="grid-2" style="margin-top:1rem;">
+      
+      <div class="card" style="border-left:3px solid var(--green);">
+        <div class="kv-label" style="color:var(--green);">Конкурентные преимущества</div>
+        <ul class="ul-clean"><li>Скорость реакции: замер в день обращения или на следующий день, этого не делает 80% конкурентов</li><li>Портфолио реальных объектов с фото до и после, формирует доверие лучше любых слов</li><li>Системная работа с отзывами: 4.8+ на картах = поток бесплатных лидов</li><li>Комплексное решение: окна + балкон + двери + обслуживание, клиент остаётся надолго</li><li>Гарантия на монтаж 5 лет с выездом специалиста, это отстройка от частников и дешёвых подрядчиков</li></ul>
+      </div>
+      
+      
+      <div class="card" style="border-left:3px solid var(--red);">
+        <div class="kv-label" style="color:var(--red);">Угрозы от конкурентов</div>
+        <ul class="ul-clean"><li>Ценовой демпинг частников и мелких компаний через Авито</li><li>Рост CPL в Яндекс.Директ: стоимость заявки растёт на 15-20% ежегодно</li><li>Федеральные сети усиливают присутствие в Самаре с большими рекламными бюджетами</li><li>Маркетплейсы начинают продавать окна как товар: заказ окна на Ozon с монтажом от подрядчика</li></ul>
+      </div>
+      
+    </div>
+    
+
+    
+    <div class="card" style="margin-top:.75rem;border-left:3px solid var(--accent);">
+      <div class="kv-label" style="color:var(--accent);">Рекомендуемая стратегия дифференциации</div>
+      <div class="kv-value">Не конкурировать ценой с частниками, это проигрышная стратегия. Строить позиционирование на экспертизе и надёжности. Ключевые отстройки: портфолио загородных объектов (для сегмента ИЖС), гарантия 5 лет с выездом (для сегмента квартир), комплексное решение балкон + окна (для сегмента балконов). Замерщик должен быть консультантом, а не продавцом, показывать разницу между решениями на языке пользы, а не характеристик. Системная работа с базой: после монтажа предложить обслуживание, через год, напомнить про балкон, через 2 года, про второе жильё или квартиру родителей.</div>
+    </div>
+    
+
+    
+    <div class="grid-2" style="margin-top:1rem;">
+      
+      <div class="card"><div class="kv-label">Типичные ошибки</div><ul class="ul-clean"><li>Замерщик приехал через 3 дня, клиент уже заказал у конкурента, который приехал на следующий день</li><li>Коммерческое предложение отправили через сутки, клиент забыл детали разговора и выбрал того, кто прислал КП за 2 часа</li><li>Нет портфолио: клиент спрашивает фото работ, а показать нечего</li><li>Нет работы с базой: поставили окна, попрощались и забыли. Через год клиенту нужен балкон, он заказал у другой компании</li><li>Сайт без калькулятора: клиент хочет примерную цену, не находит и уходит к конкуренту</li><li>Одинаковая реклама для замены окон в квартире и для остекления коттеджа, это разные аудитории с разными болями</li><li>Не собирают отзывы: 20 отзывов на картах при 500 выполненных заказах в год</li></ul></div>
+      
+      
+      <div class="card"><div class="kv-label">Незанятые ниши</div><ul class="ul-clean"><li>Сервисное обслуживание окон: регулировка фурнитуры, замена уплотнителей, смазка, 2-3 тыс. руб. за визит, но клиент возвращается и рекомендует</li><li>Программа Приведи соседа: скидка обоим при заказе в одном доме, массовая замена окон в подъезде</li><li>Зимние пакеты со скидкой 15-25%, загрузка бригад в мёртвый сезон</li><li>ИЖС-направление с отдельным лендингом, портфолио и менеджером</li><li>Видеоотзывы клиентов после монтажа, 30-секундное видео работает лучше 10 текстовых отзывов</li><li>Партнёрство с управляющими компаниями и ТСЖ: предложение жителям от лица УК со скидкой</li></ul></div>
+      
+    </div>
+    
+
+    
+    <div class="source-refs" style="margin-top:1rem;">
+      <div class="source-refs-title">Источники данных</div>
+      <ul style="list-style:none;padding:0;margin:0;">
+        
+        <li class="source-ref">ОКНА МЕДИА (отраслевой портал), 2025 — Аналитика рынка светопрозрачных конструкций в России</li>
+        
+        <li class="source-ref">Яндекс.Вордстат (аналитика спроса), 2026 — Поисковый спрос по оконным запросам в Самаре и области</li>
+        
+        <li class="source-ref">2ГИС, Яндекс.Карты (справочник), 2026 — Количество компаний, рейтинги, отзывы</li>
+        
+        <li class="source-ref">Росстат (статистика), 2025 — Ввод жилья, население, демография Самарской области</li>
+        
+        <li class="source-ref">Ассоциация АПРОК (отраслевая ассоциация), 2025 — Данные производителей профильных систем и стеклопакетов</li>
+        
+      </ul>
+    </div>
+    
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 05: MONEY + RISKS + ACTIONS (Part 2)           -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+
+
+
+<div class="tab-panel" id="t05">
+  <div class="panel-body">
+    <div class="sh">
+      <div class="sh-num">05</div>
+      <div class="sh-title">Деньги · Риски · Действия</div>
+      <div class="sh-badge">Часть 2 · Ваш бизнес</div>
+    </div>
+
+    <!-- ── PART A: 5 ATTENTION POINTS (MONEY) ── -->
+    
+    <div class="sub-h" style="border-left-color:var(--green);">5 точек внимания — где деньги прямо сейчас</div>
+    
+    <div class="att-card">
+      <div class="att-head">
+        <div class="att-num">1</div>
+        <div>
+          <div class="att-title">Скорость реакции, главное конкурентное преимущество</div>
+          <span class="tag tag-red" style="margin-top:.2rem;">high</span>
+        </div>
+      </div>
+      <div class="att-desc">Клиент оставляет заявки в 3-5 компаний. Кто перезвонил первым и приехал на замер в тот же день, тот и получил заказ. Большинство оконных компаний Самары перезванивают через 2-4 часа, замер ставят через 2-3 дня. За это время клиент уже договорился с конкурентом.</div>
+      
+      
+      <div style="display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .5rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:4px;font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:.5rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Рост конверсии заявка-договор на 25-40% без увеличения рекламного бюджета
+      </div>
+      
+      
+      <ol class="att-steps"><li>Обработка заявки в течение 15 минут после поступления</li><li>Замер в день обращения или на следующее утро</li><li>Коммерческое предложение, в течение 2 часов после замера</li><li>Перезвон клиенту через 1-2 дня после отправки КП: определились?</li><li>CRM для контроля скорости на каждом этапе</li></ol>
+      
+      
+      <div style="font-size:.75rem;color:var(--text3);margin-top:.3rem;"><strong>Ресурсы:</strong> Выделенный менеджер на приёме звонков. CRM (AmoCRM или Битрикс24, 5-15 тыс. руб./мес). Замерщик на линии каждый день.</div>
+      
+    </div>
+    
+    <div class="att-card">
+      <div class="att-head">
+        <div class="att-num">2</div>
+        <div>
+          <div class="att-title">Отзывы на картах, бесплатный поток клиентов</div>
+          <span class="tag tag-red" style="margin-top:.2rem;">high</span>
+        </div>
+      </div>
+      <div class="att-desc">85% клиентов перед вызовом замерщика смотрят отзывы на Яндекс.Картах и 2ГИС. Компания с рейтингом 4.8 и 200 отзывами получает в 3-4 раза больше обращений. При этом типичная оконная компания Самары имеет 4.0-4.3 и 30-50 отзывов. Починить это можно за 3-6 месяцев системной работы.</div>
+      
+      
+      <div style="display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .5rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:4px;font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:.5rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Рост первичного трафика на 30-60% без рекламного бюджета в течение 3-6 месяцев
+      </div>
+      
+      
+      <ol class="att-steps"><li>После каждого монтажа просить отзыв: лично, через SMS или QR-код на акте приёмки</li><li>Мотивация: скидка 500-1000 руб. на следующий заказ за отзыв с фото</li><li>Ответить на все существующие отзывы, включая негативные, вежливо и конкретно</li><li>Добавить фото выполненных работ в карточку раз в 2 недели</li><li>Цель: 4.7+ рейтинг и 200+ отзывов на Яндекс.Картах за 6-12 месяцев</li></ol>
+      
+      
+      <div style="font-size:.75rem;color:var(--text3);margin-top:.3rem;"><strong>Ресурсы:</strong> 0 рублей бюджета. 15-20 минут в день на работу с отзывами. Привычка просить отзыв после каждого монтажа.</div>
+      
+    </div>
+    
+    <div class="att-card">
+      <div class="att-head">
+        <div class="att-num">3</div>
+        <div>
+          <div class="att-title">Повторные продажи: окна сегодня, балкон завтра</div>
+          <span class="tag tag-red" style="margin-top:.2rem;">high</span>
+        </div>
+      </div>
+      <div class="att-desc">Клиент, который поставил окна, через 1-2 года с высокой вероятностью захочет остеклить балкон, поменять окна в другой комнате или посоветовать компанию родителям. Но после монтажа про него забывают. Нет базы, нет напоминаний, нет предложений. Это деньги, которые уходят к конкурентам.</div>
+      
+      
+      <div style="display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .5rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:4px;font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:.5rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Повторные заказы от 20-30% клиентской базы. При 300 заказах в год, 60-90 повторных заказов без затрат на привлечение.
+      </div>
+      
+      
+      <ol class="att-steps"><li>Фиксировать каждого клиента в CRM: имя, телефон, адрес, что поставили, дата</li><li>Через 3-7 дней после монтажа, звонок контроля качества</li><li>Через 3-6 месяцев, предложение: балкон, окна в другие комнаты, москитные сетки</li><li>Через год, напоминание о бесплатной регулировке фурнитуры (повод для контакта)</li><li>Реферальная скидка: приведи соседа, оба получают скидку 5-10%</li></ol>
+      
+      
+      <div style="font-size:.75rem;color:var(--text3);margin-top:.3rem;"><strong>Ресурсы:</strong> CRM (5-15 тыс. руб./мес). Время менеджера на обзвон (1-2 часа в неделю). Скрипт повторного предложения.</div>
+      
+    </div>
+    
+    <div class="att-card">
+      <div class="att-head">
+        <div class="att-num">4</div>
+        <div>
+          <div class="att-title">ИЖС как отдельное направление с высоким чеком</div>
+          <span class="tag tag-red" style="margin-top:.2rem;">high</span>
+        </div>
+      </div>
+      <div class="att-desc">Средний заказ на остекление частного дома, 300-800 тыс. руб., это в 3-5 раз выше квартирного. ИЖС в Самарской области растёт на 15-20% в год. Но большинство оконных компаний не выделяют ИЖС как отдельное направление: нет портфолио загородных объектов, нет опыта работы с архитекторами, нет отдельного лендинга.</div>
+      
+      
+      <div style="display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .5rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:4px;font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:.5rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        10-15 заказов ИЖС в месяц по 400 тыс. руб. = 48-72 млн руб./год дополнительной выручки
+      </div>
+      
+      
+      <ol class="att-steps"><li>Собрать портфолио: сфотографировать 10-15 загородных объектов с разрешения хозяев</li><li>Создать отдельную страницу на сайте для ИЖС с калькулятором, портфолио и примерами</li><li>Выделить менеджера, который специализируется на загородных заказах</li><li>Запустить рекламу на запросы: окна для коттеджа Самара, панорамное остекление дома</li><li>Партнёрство с прорабами и архитекторами: рекомендательные бонусы</li></ol>
+      
+      
+      <div style="font-size:.75rem;color:var(--text3);margin-top:.3rem;"><strong>Ресурсы:</strong> Фотограф для портфолио (10-15 тыс. руб. разово). Отдельный лендинг (30-50 тыс. руб.). Рекламный бюджет на ИЖС-запросы (20-40 тыс. руб./мес).</div>
+      
+    </div>
+    
+    <div class="att-card">
+      <div class="att-head">
+        <div class="att-num">5</div>
+        <div>
+          <div class="att-title">Замерщик, не измеритель, а консультант</div>
+          <span class="tag tag-red" style="margin-top:.2rem;">high</span>
+        </div>
+      </div>
+      <div class="att-desc">70% решения о покупке принимается на этапе замера, по впечатлению от человека. Если замерщик пришёл неопрятным, торопился, не объяснил разницу между профилями, клиент закажет у того, чей замерщик понравился больше. Замерщик, главный продавец компании, но большинство компаний не обучают замерщиков работать с клиентом.</div>
+      
+      
+      <div style="display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .5rem;background:var(--green-bg);border:1px solid var(--green-border);border-radius:4px;font-size:.72rem;font-weight:700;color:var(--green);margin-bottom:.5rem;">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        Рост конверсии замер-договор на 15-25%, рост среднего чека на 10-20% за счёт апселла на замере
+      </div>
+      
+      
+      <ol class="att-steps"><li>Стандарт внешнего вида: чистая форма, бахилы, визитка</li><li>Образцы профиля и стеклопакетов на каждом замере, показать и дать потрогать</li><li>Скрипт консультации: спросить об ожиданиях, показать разницу на языке пользы, предложить 2-3 варианта</li><li>Обучение апселлу: энергосберегающий стеклопакет, немецкая фурнитура, тёплый подоконник</li><li>Бонус замерщику за конверсию замер-договор и за средний чек выше порогового</li></ol>
+      
+      
+      <div style="font-size:.75rem;color:var(--text3);margin-top:.3rem;"><strong>Ресурсы:</strong> Обучение замерщиков (2-3 дня). Набор образцов (5-10 тыс. руб.). Система мотивации.</div>
+      
+    </div>
+    
+    
+
+    <!-- ── PART B: RISKS ── -->
+    
+    <div class="sub-h" style="border-left-color:var(--red);">Риски — что может помешать</div>
+
+    <div class="rm-grid" style="margin-bottom:1rem;">
+      <div class="rm-y">Вероятность</div>
+      <div class="rm-cell">
+        <div class="rm-cell-hdr">Высокая / Низкое влияние</div>
+        
+      </div>
+      <div class="rm-cell rm-cell--hh">
+        <div class="rm-cell-hdr">Высокая / Высокое влияние</div>
+        <span class="rm-tag">Ценовой демпинг частников и мелких компаний</span><span class="rm-tag">Рост стоимости привлечения клиента в Директе</span>
+      </div>
+      <div class="rm-cell">
+        <div class="rm-cell-hdr">Низкая / Низкое влияние</div>
+        
+      </div>
+      <div class="rm-cell">
+        <div class="rm-cell-hdr">Низкая / Высокое влияние</div>
+        <span class="rm-tag">Потеря ключевой бригады монтажников</span><span class="rm-tag">Сезонный кассовый разрыв</span>
+      </div>
+      <div class="rm-x"><span>Низкое влияние</span><span>Высокое влияние</span></div>
+    </div>
+
+    
+    <div class="risk-card">
+      <div class="risk-head">
+        <div class="risk-prob risk-prob-high">HIGH</div>
+        <div>
+          <div class="risk-title">Ценовой демпинг частников и мелких компаний <span class="mono" style="font-size:.72rem;color:var(--text3);font-weight:400;">6/10</span></div>
+        </div>
+      </div>
+      <div class="risk-desc">100+ частных монтажников в Самаре предлагают цены на 30-40% ниже. Часть клиентов уходит к ним, особенно в бюджетном сегменте. Если не выстроить позиционирование, компания конкурирует только ценой, и проигрывает.</div>
+      
+      <div class="risk-section" style="border-left-color:var(--green);">
+        <div class="risk-section-title">Стратегия снижения</div>
+        <div class="risk-section-text">Не конкурировать ценой с частниками. Отстройка: гарантия 5 лет с выездом, портфолио, отзывы, договор. Работать с аудиторией, которой важна надёжность, а не только цена.</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--accent);">
+        <div class="risk-section-title">Ранние признаки</div>
+        <div class="risk-section-text">Клиенты всё чаще говорят: у частника на 15 тысяч дешевле, Падение конверсии замер-договор ниже 30%</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--red);">
+        <div class="risk-section-title">Антикризисный план</div>
+        <div class="risk-section-text">Сравнительная таблица: что входит в нашу цену vs что предлагает частник. Показать разницу в гарантии, качестве монтажа и ответственности.</div>
+      </div>
+      
+    </div>
+    
+    <div class="risk-card">
+      <div class="risk-head">
+        <div class="risk-prob risk-prob-high">HIGH</div>
+        <div>
+          <div class="risk-title">Рост стоимости привлечения клиента в Директе <span class="mono" style="font-size:.72rem;color:var(--text3);font-weight:400;">7/10</span></div>
+        </div>
+      </div>
+      <div class="risk-desc">CPL в Яндекс.Директ по оконным запросам в Самаре растёт на 15-20% ежегодно. Сейчас 1 200-3 000 руб. за заявку. Через 2-3 года стоимость может стать нерентабельной для бюджетных заказов.</div>
+      
+      <div class="risk-section" style="border-left-color:var(--green);">
+        <div class="risk-section-title">Стратегия снижения</div>
+        <div class="risk-section-text">Диверсификация каналов: карты (бесплатный трафик), сарафанное радио (реферальная программа), партнёрства с УК и прорабами, SEO. Снижение зависимости от Директа до 40-50% лидов.</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--accent);">
+        <div class="risk-section-title">Ранние признаки</div>
+        <div class="risk-section-text">CPL вырос на 25%+ за квартал, ROI рекламной кампании падает ниже 200%</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--red);">
+        <div class="risk-section-title">Антикризисный план</div>
+        <div class="risk-section-text">Усилить органические каналы: карты, отзывы, реферальная программа. Перераспределить бюджет в SEO и контент.</div>
+      </div>
+      
+    </div>
+    
+    <div class="risk-card">
+      <div class="risk-head">
+        <div class="risk-prob risk-prob-medium">MEDIUM</div>
+        <div>
+          <div class="risk-title">Потеря ключевой бригады монтажников <span class="mono" style="font-size:.72rem;color:var(--text3);font-weight:400;">8/10</span></div>
+        </div>
+      </div>
+      <div class="risk-desc">Качество монтажа, 50% результата. Если уходит опытная бригада, страдает и качество, и сроки. Найти и обучить новую бригаду, 2-3 месяца. В сезон это критично.</div>
+      
+      <div class="risk-section" style="border-left-color:var(--green);">
+        <div class="risk-section-title">Стратегия снижения</div>
+        <div class="risk-section-text">Иметь 2-3 бригады с разной загрузкой. Конкурентная оплата и бонусы за качество. Стандарты монтажа, чтобы новая бригада могла быстро войти в процесс.</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--accent);">
+        <div class="risk-section-title">Ранние признаки</div>
+        <div class="risk-section-text">Бригада начала работать на стороне параллельно, Рост рекламаций по качеству монтажа, Срывы сроков</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--red);">
+        <div class="risk-section-title">Антикризисный план</div>
+        <div class="risk-section-text">Резервная бригада на подряде. Чёткие стандарты и чек-листы монтажа, чтобы замена бригады не снижала качество.</div>
+      </div>
+      
+    </div>
+    
+    <div class="risk-card">
+      <div class="risk-head">
+        <div class="risk-prob risk-prob-medium">MEDIUM</div>
+        <div>
+          <div class="risk-title">Сезонный кассовый разрыв <span class="mono" style="font-size:.72rem;color:var(--text3);font-weight:400;">6/10</span></div>
+        </div>
+      </div>
+      <div class="risk-desc">70% заказов приходится на апрель-октябрь. Зимой выручка падает вдвое, но аренда, зарплаты и расходы остаются. Без финансовой подушки или зимних акций компания может попасть в кассовый разрыв.</div>
+      
+      <div class="risk-section" style="border-left-color:var(--green);">
+        <div class="risk-section-title">Стратегия снижения</div>
+        <div class="risk-section-text">Зимние акции со скидкой 15-25% для загрузки бригад. Финансовый резерв на 2-3 месяца низкого сезона. Коммерческие заказы и обслуживание для сглаживания сезонности.</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--accent);">
+        <div class="risk-section-title">Ранние признаки</div>
+        <div class="risk-section-text">Выручка в декабре-феврале падает ниже 30% от пиковых месяцев, Бригады простаивают более 5 дней</div>
+      </div>
+      
+      
+      <div class="risk-section" style="margin-top:.4rem;border-left-color:var(--red);">
+        <div class="risk-section-title">Антикризисный план</div>
+        <div class="risk-section-text">Агрессивные зимние акции, предоплатные заказы на весну со скидкой, коммерческие объекты в низкий сезон.</div>
+      </div>
+      
+    </div>
+    
+    
+
+    <!-- ── PART C: GROWTH ACTIONS ── -->
+    <div class="sub-h" style="border-left-color:var(--accent);">Действия для роста — что делать прямо сейчас</div>
+
+    <!-- GROWTH ACTIONS -->
+    
+    <div class="sub-h">Действия для роста</div>
+
+    <!-- Filter bar -->
+    
+    
+
+    <div id="actionsContainer">
+    
+    
+    <div class="act-card" data-category="">
+      <div class="act-head">
+        <div class="act-pri act-pri-1">1</div>
+        <div>
+          <div class="act-title"></div>
+          
+        </div>
+      </div>
+      
+
+      <div class="act-chips">
+        <span class="act-chip tag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1-2 недели на запуск, 6-12 месяцев на результат</span>
+        
+        
+        
+        
+      </div>
+
+      
+    </div>
+    
+    
+    <div class="act-card" data-category="">
+      <div class="act-head">
+        <div class="act-pri act-pri-1">1</div>
+        <div>
+          <div class="act-title"></div>
+          
+        </div>
+      </div>
+      
+
+      <div class="act-chips">
+        <span class="act-chip tag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2-4 недели на внедрение</span>
+        
+        
+        
+        
+      </div>
+
+      
+    </div>
+    
+    
+    <div class="act-card" data-category="">
+      <div class="act-head">
+        <div class="act-pri act-pri-1">1</div>
+        <div>
+          <div class="act-title"></div>
+          
+        </div>
+      </div>
+      
+
+      <div class="act-chips">
+        <span class="act-chip tag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2-3 недели на разработку</span>
+        
+        
+        
+        
+      </div>
+
+      
+    </div>
+    
+    
+    <div class="act-card" data-category="">
+      <div class="act-head">
+        <div class="act-pri act-pri-1">1</div>
+        <div>
+          <div class="act-title"></div>
+          
+        </div>
+      </div>
+      
+
+      <div class="act-chips">
+        <span class="act-chip tag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1-2 месяца на запуск</span>
+        
+        
+        
+        
+      </div>
+
+      
+    </div>
+    
+    
+    <div class="act-card" data-category="">
+      <div class="act-head">
+        <div class="act-pri act-pri-1">1</div>
+        <div>
+          <div class="act-title"></div>
+          
+        </div>
+      </div>
+      
+
+      <div class="act-chips">
+        <span class="act-chip tag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Запуск в ноябре ежегодно</span>
+        
+        
+        
+        
+      </div>
+
+      
+    </div>
+    
+    
+    <div class="act-card" data-category="">
+      <div class="act-head">
+        <div class="act-pri act-pri-1">1</div>
+        <div>
+          <div class="act-title"></div>
+          
+        </div>
+      </div>
+      
+
+      <div class="act-chips">
+        <span class="act-chip tag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1-2 месяца на переговоры и запуск</span>
+        
+        
+        
+        
+      </div>
+
+      
+    </div>
+    
+    </div>
+    
+
+    <!-- Quick Wins -->
+    
+
+    <!-- 90-Day Plan -->
+    
+
+    <!-- Revenue optimization -->
+    
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TAB 04: YOUR POSITION + UNIT ECONOMICS (Part 2)    -->
+<!-- ═══════════════════════════════════════════════════ -->
+
+<div class="tab-panel" id="t04">
+  <div class="panel-body">
+    <div class="sh">
+      <div class="sh-num">04</div>
+      <div class="sh-title">Ваша позиция в нише</div>
+      <div class="sh-badge">Часть 2 · Ваш бизнес</div>
+    </div>
+
+    <!-- Almaz comment -->
+    
+
+    <!-- Position + Bottleneck -->
+    
+
+    <!-- UNIT ECONOMICS -->
+    <div class="sh" style="margin-top:2rem;">
+      <div class="sh-num" style="background:var(--accent);color:#fff;">₽</div>
+      <div class="sh-title">Юнит-экономика</div>
+    </div>
+
+    
+
+    <!-- Current Metrics -->
+    
+
+    <!-- Funnel Economics -->
+    
+
+    <!-- Scenarios -->
+    
+
+    <!-- Benchmarks -->
+    
+
+    <!-- Bottlenecks -->
+    
+
+    <!-- Recommendations -->
+    
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- CTA                                                -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="cta">
+  <div class="cta-inner">
+    <div class="cta-label">Следующий шаг</div>
+    <h2>Рентген своей ниши</h2>
+    <ul class="cta-list">
+      <li>Полный разбор вашей ниши и позиции в ней</li>
+      <li>Персональная консультация от эксперта</li>
+      <li>Конкретный план действий на 90 дней</li>
+    </ul>
+    <a href="https://t.me/almazgataullin" class="cta-btn" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      Записаться
+    </a>
+    <div class="cta-proof">20+ ниш продиагностировано в 2025–2026</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SCRIPTS                                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<script>
+// ── Tab switching ──
+(function(){
+  const btns = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.tab-panel');
+  const chartsInited = {};
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      btns.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(tab).classList.add('active');
+      window.location.hash = tab;
+      if (!chartsInited[tab]) { initCharts(tab); chartsInited[tab] = true; }
+    });
+  });
+
+  // Init from hash
+  const hash = window.location.hash.replace('#','');
+  if (hash) {
+    const btn = document.querySelector(`.tab-btn[data-tab="${hash}"]`);
+    if (btn) btn.click();
+  }
+
+  // Init first tab charts
+  chartsInited['t01'] = true;
+  initCharts('t02'); chartsInited['t02'] = true; // pre-init trend chart
+
+  // ── Action category filter ──
+  const filterBar = document.getElementById('actFilterBar');
+  if (filterBar) {
+    const filterBtns = filterBar.querySelectorAll('.filter-btn');
+    const actionCards = document.querySelectorAll('#actionsContainer .act-card');
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        actionCards.forEach(card => {
+          card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+        });
+      });
+    });
+  }
+})();
+
+// ── Chart init dispatcher ──
+function initCharts(tabId) {
+  if (tabId === 't02') initTrendChart();
+  if (tabId === 't02') initSegmentsChart();
+  if (tabId === 't03') initRadarChart();
+  if (tabId === 't04') initScenariosChart();
+}
+
+// ── Market Trend Chart ──
+function initTrendChart() {
+  const el = document.getElementById('chartTrend');
+  if (!el) return;
+  
+}
+
+// ── Segments Chart ──
+function initSegmentsChart() {
+  const el = document.getElementById('chartSegments');
+  if (!el) return;
+  
+  const segs = [{"acv": "80-250 \u0442\u044b\u0441. \u0440\u0443\u0431. \u0437\u0430 \u043a\u0432\u0430\u0440\u0442\u0438\u0440\u0443 (2-4 \u043e\u043a\u043d\u0430)", "competition": "\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u0430\u044f, \u0434\u0435\u043c\u043f\u0438\u043d\u0433\u0443\u044e\u0442 \u0432\u0441\u0435, \u0432\u043a\u043b\u044e\u0447\u0430\u044f \u0447\u0430\u0441\u0442\u043d\u0438\u043a\u043e\u0432. \u0426\u0435\u043d\u0430 \u0437\u0430 \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u043e\u0435 \u043e\u043a\u043d\u043e 1400x1300: 18-35 \u0442\u044b\u0441. \u0440\u0443\u0431. \u0441 \u0443\u0441\u0442\u0430\u043d\u043e\u0432\u043a\u043e\u0439.", "demand_score": 9, "description": "\u041e\u0441\u043d\u043e\u0432\u043d\u043e\u0439 \u043c\u0430\u0441\u0441\u043e\u0432\u044b\u0439 \u043f\u0440\u043e\u0434\u0443\u043a\u0442, \u0437\u0430\u043c\u0435\u043d\u0430 \u0441\u0442\u0430\u0440\u044b\u0445 \u0434\u0435\u0440\u0435\u0432\u044f\u043d\u043d\u044b\u0445 \u043e\u043a\u043e\u043d \u043d\u0430 \u043f\u043b\u0430\u0441\u0442\u0438\u043a\u043e\u0432\u044b\u0435 \u0432 \u043a\u0432\u0430\u0440\u0442\u0438\u0440\u0430\u0445, \u0430 \u0442\u0430\u043a\u0436\u0435 \u043e\u0441\u0442\u0435\u043a\u043b\u0435\u043d\u0438\u0435 \u043a\u0432\u0430\u0440\u0442\u0438\u0440 \u0432 \u043d\u043e\u0432\u043e\u0441\u0442\u0440\u043e\u0439\u043a\u0430\u0445. \u0422\u0438\u043f\u043e\u0432\u044b\u0435 \u0440\u0430\u0437\u043c\u0435\u0440\u044b, \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u044b\u0435 \u043f\u0440\u043e\u0444\u0438\u043b\u0438.", "entry": "\u041d\u0438\u0437\u043a\u0438\u0439 \u043f\u043e\u0440\u043e\u0433 \u0432\u0445\u043e\u0434\u0430 \u0434\u043b\u044f \u0434\u0438\u043b\u0435\u0440\u043e\u0432. \u041d\u0443\u0436\u0435\u043d \u043e\u0444\u0438\u0441, \u0434\u043e\u0433\u043e\u0432\u043e\u0440 \u0441 \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0438\u0442\u0435\u043b\u0435\u043c \u0438 \u0431\u0440\u0438\u0433\u0430\u0434\u0430 \u043c\u043e\u043d\u0442\u0430\u0436\u043d\u0438\u043a\u043e\u0432.", "margin_pct": 25, "name": "\u041f\u0412\u0425-\u043e\u043a\u043d\u0430 \u0434\u043b\u044f \u043a\u0432\u0430\u0440\u0442\u0438\u0440 (\u0437\u0430\u043c\u0435\u043d\u0430 \u0438 \u043d\u043e\u0432\u043e\u0441\u0442\u0440\u043e\u0439\u043a\u0438)", "trend": "\u0421\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u044b\u0439 \u0441\u043f\u0440\u043e\u0441, \u0431\u0430\u0437\u043e\u0432\u044b\u0439 \u043f\u0440\u043e\u0434\u0443\u043a\u0442. \u0421\u0440\u0435\u0434\u043d\u0438\u0439 \u0447\u0435\u043a \u0440\u0430\u0441\u0442\u0451\u0442 \u0437\u0430 \u0441\u0447\u0451\u0442 \u043f\u0435\u0440\u0435\u0445\u043e\u0434\u0430 \u043d\u0430 \u043c\u043d\u043e\u0433\u043e\u043a\u0430\u043c\u0435\u0440\u043d\u044b\u0435 \u043f\u0440\u043e\u0444\u0438\u043b\u0438 \u0438 \u044d\u043d\u0435\u0440\u0433\u043e\u0441\u0431\u0435\u0440\u0435\u0433\u0430\u044e\u0449\u0438\u0435 \u0441\u0442\u0435\u043a\u043b\u043e\u043f\u0430\u043a\u0435\u0442\u044b."}, {"acv": "30-55 \u0442\u044b\u0441. \u0440\u0443\u0431. \u0437\u0430 \u0431\u0430\u043b\u043a\u043e\u043d", "competition": "\u0412\u044b\u0441\u043e\u043a\u0430\u044f, \u043c\u043d\u043e\u0433\u043e \u043c\u0435\u043b\u043a\u0438\u0445 \u0438\u0433\u0440\u043e\u043a\u043e\u0432. \u0410\u043b\u044e\u043c\u0438\u043d\u0438\u0435\u0432\u044b\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u044b (Provedal) \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b \u0432\u0441\u0435\u043c.", "demand_score": 7, "description": "\u0410\u043b\u044e\u043c\u0438\u043d\u0438\u0435\u0432\u044b\u0435 \u0440\u0430\u0437\u0434\u0432\u0438\u0436\u043d\u044b\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u044b \u0434\u043b\u044f \u0437\u0430\u0449\u0438\u0442\u044b \u043e\u0442 \u043e\u0441\u0430\u0434\u043a\u043e\u0432 \u0438 \u0432\u0435\u0442\u0440\u0430. \u041d\u0435 \u0443\u0442\u0435\u043f\u043b\u044f\u044e\u0442, \u043d\u043e \u0437\u0430\u043a\u0440\u044b\u0432\u0430\u044e\u0442 \u043f\u0440\u043e\u0451\u043c. \u041f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u043e \u0432 \u043f\u0430\u043d\u0435\u043b\u044c\u043d\u044b\u0445 \u0434\u043e\u043c\u0430\u0445 \u0441 \u043c\u0430\u043b\u0435\u043d\u044c\u043a\u0438\u043c\u0438 \u0431\u0430\u043b\u043a\u043e\u043d\u0430\u043c\u0438.", "entry": "\u041d\u0438\u0437\u043a\u0438\u0439 \u043f\u043e\u0440\u043e\u0433. \u041f\u0440\u043e\u0441\u0442\u043e\u0439 \u043c\u043e\u043d\u0442\u0430\u0436, \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u044b\u0435 \u043a\u043e\u043d\u0441\u0442\u0440\u0443\u043a\u0446\u0438\u0438.", "margin_pct": 30, "name": "\u041e\u0441\u0442\u0435\u043a\u043b\u0435\u043d\u0438\u0435 \u0431\u0430\u043b\u043a\u043e\u043d\u043e\u0432 \u0438 \u043b\u043e\u0434\u0436\u0438\u0439 (\u0445\u043e\u043b\u043e\u0434\u043d\u043e\u0435, \u0430\u043b\u044e\u043c\u0438\u043d\u0438\u0435\u0432\u043e\u0435)", "trend": "\u0421\u043f\u0440\u043e\u0441 \u043f\u043e\u0441\u0442\u0435\u043f\u0435\u043d\u043d\u043e \u0441\u043c\u0435\u0449\u0430\u0435\u0442\u0441\u044f \u043a \u0442\u0451\u043f\u043b\u043e\u043c\u0443 \u043e\u0441\u0442\u0435\u043a\u043b\u0435\u043d\u0438\u044e. \u041d\u043e \u0432 \u0431\u044e\u0434\u0436\u0435\u0442\u043d\u043e\u043c \u0441\u0435\u0433\u043c\u0435\u043d\u0442\u0435 \u0445\u043e\u043b\u043e\u0434\u043d\u043e\u0435 \u043e\u0441\u0442\u0430\u0451\u0442\u0441\u044f \u0432\u043e\u0441\u0442\u0440\u0435\u0431\u043e\u0432\u0430\u043d\u043d\u044b\u043c."}, {"acv": "70-150 \u0442\u044b\u0441. \u0440\u0443\u0431. \u0437\u0430 \u0431\u0430\u043b\u043a\u043e\u043d (\u0441 \u043e\u0442\u0434\u0435\u043b\u043a\u043e\u0439 \u0434\u043e 200 \u0442\u044b\u0441.)", "competition": "\u0421\u0440\u0435\u0434\u043d\u044f\u044f. \u0427\u0430\u0441\u0442\u043d\u0438\u043a\u0438 \u0431\u0435\u0440\u0443\u0442\u0441\u044f \u0440\u0435\u0436\u0435, \u043d\u0443\u0436\u043d\u0430 \u044d\u043a\u0441\u043f\u0435\u0440\u0442\u0438\u0437\u0430 \u0432 \u0443\u0442\u0435\u043f\u043b\u0435\u043d\u0438\u0438 \u0438 \u0432\u0435\u043d\u0442\u0438\u043b\u044f\u0446\u0438\u0438.", "demand_score": 8, "description": "\u041f\u0412\u0425-\u043f\u0440\u043e\u0444\u0438\u043b\u044c \u0438\u043b\u0438 \u0442\u0451\u043f\u043b\u044b\u0439 \u0430\u043b\u044e\u043c\u0438\u043d\u0438\u0439 \u0434\u043b\u044f \u043f\u0440\u0435\u0432\u0440\u0430\u0449\u0435\u043d\u0438\u044f \u0431\u0430\u043b\u043a\u043e\u043d\u0430 \u0432 \u0436\u0438\u043b\u043e\u0435 \u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u043e. \u0422\u0440\u0435\u0431\u0443\u0435\u0442 \u0443\u0442\u0435\u043f\u043b\u0435\u043d\u0438\u044f \u043f\u043e\u043b\u0430, \u043f\u043e\u0442\u043e\u043b\u043a\u0430 \u0438 \u043f\u0430\u0440\u0430\u043f\u0435\u0442\u0430. \u0411\u043e\u043b\u0435\u0435 \u0441\u043b\u043e\u0436\u043d\u044b\u0439 \u043c\u043e\u043d\u0442\u0430\u0436.", "entry": "\u0421\u0440\u0435\u0434\u043d\u0438\u0439 \u043f\u043e\u0440\u043e\u0433. \u041d\u0443\u0436\u043d\u044b \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u044b \u043f\u043e \u0443\u0442\u0435\u043f\u043b\u0435\u043d\u0438\u044e \u0438 \u043e\u0442\u0434\u0435\u043b\u043a\u0435, \u043d\u0435 \u0442\u043e\u043b\u044c\u043a\u043e \u043c\u043e\u043d\u0442\u0430\u0436\u043d\u0438\u043a\u0438 \u043e\u043a\u043e\u043d.", "margin_pct": 35, "name": "\u0422\u0451\u043f\u043b\u043e\u0435 \u043e\u0441\u0442\u0435\u043a\u043b\u0435\u043d\u0438\u0435 \u0431\u0430\u043b\u043a\u043e\u043d\u043e\u0432 \u0438 \u043b\u043e\u0434\u0436\u0438\u0439", "trend": "\u0420\u0430\u0441\u0442\u0443\u0449\u0438\u0439 \u0441\u0435\u0433\u043c\u0435\u043d\u0442. \u041a\u043b\u0438\u0435\u043d\u0442\u044b \u0445\u043e\u0442\u044f\u0442 \u043a\u0430\u0431\u0438\u043d\u0435\u0442, \u0437\u043e\u043d\u0443 \u043e\u0442\u0434\u044b\u0445\u0430 \u0438\u043b\u0438 \u0440\u0430\u0441\u0448\u0438\u0440\u0435\u043d\u0438\u0435 \u043a\u0443\u0445\u043d\u0438 \u0437\u0430 \u0441\u0447\u0451\u0442 \u0431\u0430\u043b\u043a\u043e\u043d\u0430."}, {"acv": "150-500 \u0442\u044b\u0441. \u0440\u0443\u0431. \u0437\u0430 \u043e\u0431\u044a\u0435\u043a\u0442", "competition": "\u041d\u0438\u0437\u043a\u0430\u044f \u0441\u0440\u0435\u0434\u0438 \u043c\u0430\u043b\u044b\u0445 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u0439. \u0411\u043e\u043b\u044c\u0448\u0438\u043d\u0441\u0442\u0432\u043e \u043d\u0435 \u0443\u043c\u0435\u044e\u0442 \u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c \u0441 \u043a\u043e\u043c\u043c\u0435\u0440\u0447\u0435\u0441\u043a\u0438\u043c\u0438 \u0437\u0430\u043a\u0430\u0437\u0430\u043c\u0438 \u0438 \u0442\u0435\u043d\u0434\u0435\u0440\u0430\u043c\u0438.", "demand_score": 6, "description": "\u0410\u043b\u044e\u043c\u0438\u043d\u0438\u0435\u0432\u044b\u0435 \u0438 \u041f\u0412\u0425-\u0432\u0445\u043e\u0434\u043d\u044b\u0435 \u0433\u0440\u0443\u043f\u043f\u044b \u0434\u043b\u044f \u043c\u0430\u0433\u0430\u0437\u0438\u043d\u043e\u0432, \u043e\u0444\u0438\u0441\u043e\u0432, \u043f\u043e\u0434\u044a\u0435\u0437\u0434\u043e\u0432. \u0412\u0438\u0442\u0440\u0438\u043d\u044b, \u043f\u0435\u0440\u0435\u0433\u043e\u0440\u043e\u0434\u043a\u0438, \u0442\u0430\u043c\u0431\u0443\u0440\u044b. \u0420\u0430\u0431\u043e\u0442\u0430 \u043f\u043e \u0434\u043e\u0433\u043e\u0432\u043e\u0440\u0430\u043c \u0441 \u044e\u0440\u043b\u0438\u0446\u0430\u043c\u0438 \u0438 \u0443\u043f\u0440\u0430\u0432\u043b\u044f\u044e\u0449\u0438\u043c\u0438 \u043a\u043e\u043c\u043f\u0430\u043d\u0438\u044f\u043c\u0438.", "entry": "\u0412\u044b\u0441\u043e\u043a\u0438\u0439 \u043f\u043e\u0440\u043e\u0433. \u041d\u0443\u0436\u0435\u043d \u043e\u043f\u044b\u0442 \u043f\u0440\u043e\u0435\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f, \u0434\u043e\u043f\u0443\u0441\u043a \u0421\u0420\u041e \u0434\u043b\u044f \u043a\u0440\u0443\u043f\u043d\u044b\u0445 \u043e\u0431\u044a\u0435\u043a\u0442\u043e\u0432, \u043e\u0431\u043e\u0440\u043e\u0442\u043d\u044b\u0439 \u043a\u0430\u043f\u0438\u0442\u0430\u043b.", "margin_pct": 20, "name": "\u0412\u0445\u043e\u0434\u043d\u044b\u0435 \u0433\u0440\u0443\u043f\u043f\u044b \u0438 \u043a\u043e\u043c\u043c\u0435\u0440\u0447\u0435\u0441\u043a\u043e\u0435 \u043e\u0441\u0442\u0435\u043a\u043b\u0435\u043d\u0438\u0435", "trend": "\u0421\u0442\u0430\u0431\u0438\u043b\u044c\u043d\u044b\u0439 \u0441\u043f\u0440\u043e\u0441 \u043e\u0442 \u043a\u043e\u043c\u043c\u0435\u0440\u0447\u0435\u0441\u043a\u043e\u0439 \u043d\u0435\u0434\u0432\u0438\u0436\u0438\u043c\u043e\u0441\u0442\u0438. \u041a\u0440\u0443\u043f\u043d\u044b\u0435 \u0437\u0430\u043a\u0430\u0437\u044b, \u0434\u043b\u0438\u043d\u043d\u044b\u0439 \u0446\u0438\u043a\u043b \u0441\u0434\u0435\u043b\u043a\u0438, \u0442\u0435\u043d\u0434\u0435\u0440\u043d\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430."}, {"acv": "300-800 \u0442\u044b\u0441. \u0440\u0443\u0431. \u0437\u0430 \u0434\u043e\u043c", "competition": "\u0421\u0440\u0435\u0434\u043d\u044f\u044f. \u041c\u0435\u043b\u043a\u0438\u0435 \u0438\u0433\u0440\u043e\u043a\u0438 \u043d\u0435 \u0431\u0435\u0440\u0443\u0442\u0441\u044f \u0437\u0430 \u0441\u043b\u043e\u0436\u043d\u044b\u0435 \u043f\u0440\u043e\u0435\u043a\u0442\u044b, \u043a\u0440\u0443\u043f\u043d\u044b\u0435 \u0441\u0435\u0442\u0438 \u043d\u0435 \u0433\u0438\u0431\u043a\u0438 \u0432 \u043d\u0435\u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u044b\u0445 \u0440\u0435\u0448\u0435\u043d\u0438\u044f\u0445.", "demand_score": 8, "description": "\u041e\u0441\u0442\u0435\u043a\u043b\u0435\u043d\u0438\u0435 \u0447\u0430\u0441\u0442\u043d\u044b\u0445 \u0434\u043e\u043c\u043e\u0432: \u043d\u0435\u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442\u043d\u044b\u0435 \u0440\u0430\u0437\u043c\u0435\u0440\u044b, \u043f\u0430\u043d\u043e\u0440\u0430\u043c\u043d\u044b\u0435 \u043e\u043a\u043d\u0430, \u0432\u0445\u043e\u0434\u043d\u044b\u0435 \u0438 \u0431\u0430\u043b\u043a\u043e\u043d\u043d\u044b\u0435 \u0434\u0432\u0435\u0440\u0438, \u0440\u0430\u0437\u0434\u0432\u0438\u0436\u043d\u044b\u0435 \u043f\u043e\u0440\u0442\u0430\u043b\u044b. \u0412\u044b\u0441\u043e\u043a\u0438\u0439 \u0441\u0440\u0435\u0434\u043d\u0438\u0439 \u0447\u0435\u043a, \u0441\u043b\u043e\u0436\u043d\u044b\u0435 \u043a\u043e\u043d\u0444\u0438\u0433\u0443\u0440\u0430\u0446\u0438\u0438.", "entry": "\u0421\u0440\u0435\u0434\u043d\u0438\u0439 \u043f\u043e\u0440\u043e\u0433. \u041d\u0443\u0436\u043d\u044b \u043e\u043f\u044b\u0442 \u043f\u0440\u043e\u0435\u043a\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f, \u0440\u0430\u0431\u043e\u0442\u0430 \u0441 \u0430\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u043e\u0440\u0430\u043c\u0438, \u043f\u043e\u0440\u0442\u0444\u043e\u043b\u0438\u043e \u0437\u0430\u0433\u043e\u0440\u043e\u0434\u043d\u044b\u0445 \u043e\u0431\u044a\u0435\u043a\u0442\u043e\u0432.", "margin_pct": 30, "name": "\u041e\u043a\u043d\u0430 \u0438 \u0434\u0432\u0435\u0440\u0438 \u0434\u043b\u044f \u043a\u043e\u0442\u0442\u0435\u0434\u0436\u0435\u0439 \u0438 \u0418\u0416\u0421", "trend": "\u0411\u044b\u0441\u0442\u0440\u043e\u0440\u0430\u0441\u0442\u0443\u0449\u0438\u0439 \u0441\u0435\u0433\u043c\u0435\u043d\u0442. \u0418\u0416\u0421 \u0432 \u0421\u0430\u043c\u0430\u0440\u0441\u043a\u043e\u0439 \u043e\u0431\u043b\u0430\u0441\u0442\u0438 \u0440\u0430\u0441\u0442\u0451\u0442 \u043d\u0430 15-20% \u0432 \u0433\u043e\u0434. \u041a\u043b\u0438\u0435\u043d\u0442\u044b \u0433\u043e\u0442\u043e\u0432\u044b \u043f\u043b\u0430\u0442\u0438\u0442\u044c \u0437\u0430 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u043e \u0438 \u0434\u0438\u0437\u0430\u0439\u043d."}];
+  const labels = segs.map(s => s.name || '');
+  const marginData = segs.map(s => s.margin_pct || 0);
+  const demandData = segs.map(s => (s.demand_score || 0) * 10);
+  const ctx = el.getContext('2d');
+  const gO = ctx.createLinearGradient(0,0,400,0); gO.addColorStop(0,'rgba(249,115,22,0.9)'); gO.addColorStop(1,'rgba(251,146,60,0.7)');
+  const gB = ctx.createLinearGradient(0,0,400,0); gB.addColorStop(0,'rgba(30,64,175,0.8)'); gB.addColorStop(1,'rgba(59,130,246,0.6)');
+  new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'Маржинальность, %', data: marginData, backgroundColor: gO, borderRadius: 4, borderSkipped: false, barPercentage: 0.45, categoryPercentage: 0.85 },
+      { label: 'Спрос (×10)', data: demandData, backgroundColor: gB, borderRadius: 4, borderSkipped: false, barPercentage: 0.45, categoryPercentage: 0.85 }
+    ]},
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { family: 'Inter', size: 11 }, color: '#475569', boxWidth: 12, padding: 14 } },
+        tooltip: { backgroundColor: '#0f172a', titleColor: '#f97316', bodyColor: '#e2e8f0', padding: 10, cornerRadius: 8,
+          callbacks: { label: item => item.datasetIndex === 0 ? ` Маржа: ${item.raw}%` : ` Спрос: ${Math.round(item.raw/10)}/10` } }
+      },
+      scales: {
+        x: { min: 0, max: 100, grid: { color: '#f1f5f9' }, ticks: { font: { family: 'Fira Code', size: 10 }, color: '#94a3b8', callback: v => v+'%' } },
+        y: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11, weight: '600' }, color: '#0f172a' } }
+      }
+    },
+    plugins: [{
+      id: 'segLabels',
+      afterDatasetsDraw(chart) {
+        chart.data.datasets.forEach((ds, di) => {
+          const meta = chart.getDatasetMeta(di);
+          meta.data.forEach((bar, i) => {
+            const val = ds.data[i]; if (!val) return;
+            const { x: bx, y: by } = bar.getProps(['x','y'], true);
+            const c = chart.ctx; c.save();
+            c.font = 'bold 10px "Fira Code", monospace'; c.fillStyle = '#fff'; c.textAlign = 'right'; c.textBaseline = 'middle';
+            c.fillText(di === 0 ? val+'%' : Math.round(val/10)+'/10', bx - 6, by);
+            c.restore();
+          });
+        });
+      }
+    }]
+  });
+  
+}
+
+// ── Radar Chart ──
+function initRadarChart() {
+  const el = document.getElementById('chartRadar');
+  if (!el) return;
+  
+}
+
+// ── Scenarios Chart ──
+function initScenariosChart() {
+  const el = document.getElementById('chartScenarios');
+  if (!el) return;
+  
+}
+</script>
+
+</body>
+</html>

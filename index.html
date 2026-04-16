@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рентген ниши — структурный анализ рынка за 24 часа</title>
+  <meta name="description" content="За 24 часа покажу структуру вашего рынка: конкуренты, каналы, путь клиента, риски и точки роста.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="rh-top">
+    <span class="rh-logo">Рентген ниши</span>
+    <a href="#cta" class="rh-btn">Получить рентген</a>
+  </header>
+
+  <!-- 1. Hero -->
+  <section class="hero" id="hero">
+    <div class="hero__decor"><div class="hero__circle hero__circle--1"></div><div class="hero__circle hero__circle--2"></div></div>
+    <div class="wrap">
+      <span class="badge badge--accent" id="heroBadge"></span>
+      <h1 class="hero__title" id="heroTitle"></h1>
+      <p class="hero__subtitle" id="heroSubtitle"></p>
+      <p class="hero__desc" id="heroDesc"></p>
+      <div class="hero__tags" id="heroTags"></div>
+      <div class="hero__stat" id="heroStat"></div>
+    </div>
+  </section>
+
+  <!-- 3. Metrics -->
+  <section class="section section--alt" id="metrics">
+    <div class="wrap">
+      <h2 class="sec-title">Что вы получите в отчёте</h2>
+      <div class="metrics-grid" id="metricsGrid"></div>
+    </div>
+  </section>
+
+  <!-- 4. Report preview -->
+  <section class="section" id="reportPreview">
+    <div class="wrap">
+      <h2 class="sec-title">Как выглядит готовый отчёт</h2>
+      <p class="sec-sub">5 разделов с графиками, воронками и конкретными рекомендациями. Каждый отчёт собирается под вашу нишу и регион.</p>
+      <div class="report-tabs" id="reportTabs"></div>
+      <div class="report-preview" id="reportPreviewContent"></div>
+    </div>
+  </section>
+
+
+  <!-- 6. Avatars -->
+  <section class="section section--alt" id="avatars">
+    <div class="wrap">
+      <h2 class="sec-title">Кому нужен рентген</h2>
+      <div class="avatars-grid" id="avatarsGrid"></div>
+    </div>
+  </section>
+
+  <!-- EXAMPLE REPORT -->
+  <section class="section" id="exampleIntro">
+    <div class="wrap">
+      <p class="section-label">Пример отчёта</p>
+      <h2 class="sec-title sec-title--lg">Пластиковые окна, Самара</h2>
+      <p class="sec-sub">Так выглядит готовый рентген ниши. Реальный отчёт с данными рынка, аватарами клиентов, конкурентами и CJM. Переключайте табы для навигации.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt report-embed-section">
+    <div class="wrap">
+      <div class="report-outer-tabs">
+        <button class="report-outer-tab active" data-target="t01">01 Рынок</button>
+        <button class="report-outer-tab" data-target="t02">02 Структура + ICP</button>
+        <button class="report-outer-tab" data-target="t03">03 Конкуренты + CJM</button>
+        <button class="report-outer-tab" data-target="t05">04 Деньги и действия</button>
+        <button class="report-outer-tab report-outer-tab--locked" data-target="t04">05 Ваша позиция</button>
+      </div>
+      <div class="report-embed">
+        <iframe src="report-example.html" class="report-iframe" id="reportIframe" title="Пример отчёта: Новостройки, Краснодар" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Benefits -->
+  <section class="section" id="benefits">
+    <div class="wrap">
+      <p class="section-label">Зачем вам рентген</p>
+      <h2 class="sec-title">Что вы сможете сделать с этими данными</h2>
+      <div class="insights-list" id="benefitsList"></div>
+    </div>
+  </section>
+
+  <!-- Author -->
+  <section class="section section--alt" id="author">
+    <div class="wrap">
+      <div class="author-block">
+        <img src="../img/about.jpg" alt="Алмаз Гатауллин" class="author-block__photo" width="120" height="120" loading="lazy">
+        <div class="author-block__info">
+          <h2 class="author-block__name">Алмаз Гатауллин</h2>
+          <p class="author-block__role">Архитектор маркетинговых систем</p>
+          <div class="author-block__stats" id="authorStats"></div>
+          <p class="author-block__bio" id="authorBio"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-dark" id="cta">
+    <div class="wrap">
+      <div class="cta-box">
+        <h2 class="cta-box__title" id="ctaTitle"></h2>
+        <p class="cta-box__desc" id="ctaDesc"></p>
+        <p class="cta-box__author" id="ctaAuthor"></p>
+        <form class="cta-form" id="ctaForm">
+          <div class="cta-form__grid">
+            <div class="cta-form__field">
+              <label for="f-name">Имя</label>
+              <input type="text" id="f-name" name="name" required placeholder="Как к вам обращаться" autocomplete="given-name">
+            </div>
+            <div class="cta-form__field">
+              <label for="f-phone">Телефон</label>
+              <input type="tel" id="f-phone" name="phone" required placeholder="+7 (___) ___-__-__" autocomplete="tel">
+            </div>
+            <div class="cta-form__field">
+              <label for="f-email">Email</label>
+              <input type="email" id="f-email" name="email" placeholder="email@company.ru" autocomplete="email">
+            </div>
+            <div class="cta-form__field">
+              <label for="f-role">Роль</label>
+              <select id="f-role" name="role">
+                <option value="">Выберите</option>
+                <option value="owner">Собственник / CEO</option>
+                <option value="cmo">Директор по маркетингу</option>
+                <option value="commercial">Коммерческий директор</option>
+                <option value="marketer">Маркетолог</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="cta-form__btn" id="ctaBtn">Получить рентген ниши</button>
+          <p class="cta-form__note" id="ctaNote"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Footer -->
+  <footer class="footer" id="footer">
+    <div class="wrap" id="footerContent"></div>
+  </footer>
+
+  <!-- Success modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <div class="modal__icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3 class="modal__title">Заявка отправлена</h3>
+      <p class="modal__text">Свяжусь лично в течение дня. Обсудим, подходит ли рентген вашей ситуации.</p>
+      <button class="modal__btn" id="modalClose">Понятно</button>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
